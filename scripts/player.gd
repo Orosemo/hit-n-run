@@ -2,22 +2,43 @@ extends CharacterBody2D
 
 
 @export var speed := 300.0
+@export var springting_speed := 500.0
 @export var jump_velo := -400.0
-@export var velocity_handler: Node
+@export var velocity_component: Velocity
+
+enum States { IDLE, WALKING, SPRINTING, FALLING } 
+
+var state := States.IDLE
+
+func change_state (new_state: States):
+	# used for triggering stuff on specific states
+	state = new_state
 
 func _process(delta):
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		change_state(States.FALLING)
+	else:
+		change_state(States.IDLE)
 
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity_handler.set_velocity_y(jump_velo)
+	if Input.is_action_just_pressed("jump") and is_on_floor():
+		velocity_component.set_velocity_y(jump_velo)
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
+	# handle left/right movement
+	var direction := Input.get_axis("left", "right")
 	if direction:
-		velocity_handler.set_velocity_x(direction * speed)
+		if Input.is_action_pressed("run"):
+			velocity_component.set_velocity_x(direction * springting_speed)
+			change_state(States.SPRINTING)
+		else:
+			velocity_component.set_velocity_x(direction * speed)
+			change_state(States.WALKING)
+
 	else:
-		velocity_handler.reset_velocity_x
+		if state == States.FALLING:
+			velocity_component.reset_velocity_x(1)
+		else:
+			velocity_component.reset_velocity_x(speed)

@@ -2,15 +2,26 @@
 
 [ext_resource type="Script" uid="uid://b7kskyandvpnw" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://kxi5yci43og0" path="res://scripts/components/velocity.gd" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://b2yomoha8yq08" path="res://icon.svg" id="3_qhqgy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
 
-[node name="player" type="CharacterBody2D" unique_id=1911238687 node_paths=PackedStringArray("velocity_handler")]
+[node name="player" type="CharacterBody2D" unique_id=1911238687 node_paths=PackedStringArray("velocity_component")]
 script = ExtResource("1_3vyb7")
-velocity_handler = NodePath("Velocity")
+velocity_component = NodePath("Velocity")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=758999050]
 shape = SubResource("CapsuleShape2D_u8vuu")
 
-[node name="Velocity" type="Node" parent="." unique_id=1378218432]
+[node name="Velocity" type="Node" parent="." unique_id=1378218432 node_paths=PackedStringArray("characterbody")]
 script = ExtResource("2_g2els")
+characterbody = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2069320102]
+scale = Vector2(0.15999877, 0.2799999)
+texture = ExtResource("3_qhqgy")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1636364270]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
