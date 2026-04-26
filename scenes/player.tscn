@@ -22,6 +22,8 @@ scale = Vector2(0.15999877, 0.2799999)
 texture = ExtResource("3_qhqgy")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1636364270]
+limit_smoothed = true
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
