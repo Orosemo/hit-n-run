@@ -5,6 +5,8 @@ class_name Health
 @export var health : int
 @export var max_health: int
 
+signal death
+
 func heal(amount: int):
     if health + amount < max_health:
         health += amount
@@ -17,6 +19,7 @@ func damage (amount: int):
         health -= amount
     else :
         health = 0
+        death.emit()
     update_display()
 
 func update_display():

@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 window/stretch/mode="viewport"
 
+[global_group]
+
+damage=""
+heal=""
+
 [input]
 
 left={
