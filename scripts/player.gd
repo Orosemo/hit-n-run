@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var jump_velo := -400.0
 @export var velocity_component: Velocity
 
+@export var inv: Inv
+
 enum States { IDLE, WALKING, SPRINTING, FALLING } 
 
 var state := States.IDLE

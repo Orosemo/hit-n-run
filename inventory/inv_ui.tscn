@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://dulqnuc7l7l38"]
+
+[node name="Inv_UI" type="Control" unique_id=715209296]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1033396289]
+layout_mode = 0
+offset_right = 457.0
+offset_bottom = 584.0
