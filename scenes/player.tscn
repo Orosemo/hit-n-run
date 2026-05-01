@@ -10,6 +10,9 @@
 script = ExtResource("1_3vyb7")
 velocity_component = NodePath("Velocity")
 
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1172652752]
+energy = 0.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=758999050]
 shape = SubResource("CapsuleShape2D_u8vuu")
 
@@ -27,3 +30,13 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=1476454106]
+
+[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer" unique_id=294874708]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.58431375)
