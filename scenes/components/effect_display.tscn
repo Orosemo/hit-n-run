@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://chs633rrqan2"]
+
+[ext_resource type="Script" uid="uid://fajam1l8t3ui" path="res://scripts/components/effect_display.gd" id="1_qt6be"]
+
+[node name="EffectDisplay" type="Control" unique_id=2038286132]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 4.0
+offset_bottom = 27.0
+script = ExtResource("1_qt6be")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=713417530]
+position = Vector2(16, 0)
+
+[node name="ProgressBar" type="ProgressBar" parent="." unique_id=889547222]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 8.0
+offset_right = 8.0
+offset_bottom = 35.0
+step = 1.0
+rounded = true

@@ -22,6 +22,12 @@ func damage (amount: int):
         death.emit()
     update_display()
 
+func get_health():
+    return health
+
+func set_health(new_health: int):
+    health = new_health
+
 func update_display():
     if display:
         display.value = health

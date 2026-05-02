@@ -3,14 +3,23 @@ class_name Velocity
 
 @export var characterbody: CharacterBody2D
 
+var shock = false
+
 # set velocities
 func set_velocity(direction: Vector2):
-	characterbody.velocity.x = direction.x
-	characterbody.velocity.y = direction.y
+	if not shock:
+		characterbody.velocity.x = direction.x
+		characterbody.velocity.y = direction.y
+	else:
+		characterbody.velocity.x = -direction.x
+		characterbody.velocity.y = direction.y
 	characterbody.move_and_slide()
 
 func set_velocity_x(speed: float):
-	characterbody.velocity.x = speed
+	if not shock:
+		characterbody.velocity.x = speed
+	else:
+		characterbody.velocity.x = -speed
 	characterbody.move_and_slide()
 
 func set_velocity_y(speed: float):
