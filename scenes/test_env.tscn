@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://b63wnpfpgypwp"]
 
 [ext_resource type="PackedScene" uid="uid://bip01w6qk85o1" path="res://scenes/player.tscn" id="1_yl55h"]
-[ext_resource type="Resource" uid="uid://demehir1gig41" path="res://inventory/playersinv.tres" id="2_po6i2"]
-[ext_resource type="PackedScene" uid="uid://dulqnuc7l7l38" path="res://inventory/inv_ui.tscn" id="3_wpndf"]
-[ext_resource type="Script" uid="uid://bc2v4r2fuue7h" path="res://inventory/inv_ui.gd" id="4_wpndf"]
+[ext_resource type="Resource" uid="uid://demehir1gig41" path="res://scenes/inventory/playersinv.tres" id="2_po6i2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyn1l"]
 size = Vector2(1042, 114)
@@ -24,13 +22,3 @@ shape = SubResource("RectangleShape2D_kyn1l")
 [node name="player" parent="." unique_id=1911238687 instance=ExtResource("1_yl55h")]
 position = Vector2(16, -24)
 inv = ExtResource("2_po6i2")
-
-[node name="Inv_UI2" parent="player" unique_id=715209296 instance=ExtResource("3_wpndf")]
-offset_left = -186.0
-offset_top = -309.0
-offset_right = -146.0
-offset_bottom = -269.0
-
-[node name="Inv_UI" parent="player/Inv_UI2" unique_id=1319019147 instance=ExtResource("3_wpndf")]
-layout_mode = 0
-script = ExtResource("4_wpndf")

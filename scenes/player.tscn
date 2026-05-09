@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://b7kskyandvpnw" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://kxi5yci43og0" path="res://scripts/components/velocity.gd" id="2_g2els"]
 [ext_resource type="Texture2D" uid="uid://b2yomoha8yq08" path="res://icon.svg" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://dulqnuc7l7l38" path="res://scenes/inventory/inv_ui.tscn" id="4_dqkch"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
 
@@ -27,3 +28,10 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="Inv_UI" parent="." unique_id=715209296 instance=ExtResource("4_dqkch")]
+offset_left = -17.0
+offset_top = -380.0
+offset_right = 441.0
+offset_bottom = 204.0
+

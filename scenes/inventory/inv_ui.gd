@@ -1,5 +1,5 @@
 extends Control 
-	print ("A")
+
 
 var is_open = false
 
@@ -7,7 +7,7 @@ func _ready():
 	close() 
 
 func _process(delta):
-	if Input.is_action_just_pressed("q")
+
 		
 		if is_open:
 			close()
