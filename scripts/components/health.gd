@@ -31,3 +31,8 @@ func set_health(new_health: int):
 func update_display():
     if display:
         display.value = health
+
+func _ready():
+    display.min_value = 0
+    display.max_value = max_health
+    display.value = max_health

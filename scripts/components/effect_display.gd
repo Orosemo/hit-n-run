@@ -1,18 +1,15 @@
-extends ProgressBar
+extends Control
 
-@export var sprite: AtlasTexture
-@export var remaining_duration: float
-@export var duration: float
-@export var type: int
+@export var effect: StatusEffect
 
 
-func update(new_remaining_duration, new_duration = null):
-	$ProgressBar.value = new_remaining_duration
-	if not new_duration == null:
-		$ProgressBar.value = new_remaining_duration
+func update():
+	$ProgressBar.value = effect.amount
+	if effect.active:
+		pass
 
 
 func _ready() -> void:
-	$Sprite2D.texture = sprite
-	$ProgressBar.max_value = duration
-	$ProgressBar.value = remaining_duration
+	$Sprite2D.texture = load(effect.sprite)
+	$ProgressBar.max_value = effect.capacity
+	$ProgressBar.value = effect.amount

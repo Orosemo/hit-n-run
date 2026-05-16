@@ -3,20 +3,15 @@ class_name Hurtbox
 
 @export var health_component : Health
 @export var shape: CollisionShape2D
-@export var effect: StatusEffects
+@export var effects: StatusEffects
 @export var cooldown_time := 1.5
 
 var cooldown_timer : Timer
 
 func collision(collider):
-	var change = collider.health_change
-	if change: 
-		if collider.is_in_group("damage"): 
-			health_component.damage(change)
-		elif collider.is_in_group("heal"):
-			health_component.heal(change)
-	if effect:
-		effect.set_effect(collider.type, collider.max_duration, collider.strengh)
+	health_component.damage(collider.damage)
+	if collider.effect:
+		effects.add_effect(collider.effect.duplicate())
 	
 	make_invincible()
 	cooldown_timer.start()

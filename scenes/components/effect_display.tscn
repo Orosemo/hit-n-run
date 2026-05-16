@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chs633rrqan2"]
 
 [ext_resource type="Script" uid="uid://fajam1l8t3ui" path="res://scripts/components/effect_display.gd" id="1_qt6be"]
+[ext_resource type="Texture2D" uid="uid://vmjyejupmbcy" path="res://assets/atlas/effects/death.tres" id="2_0yrjj"]
 
 [node name="EffectDisplay" type="Control" unique_id=2038286132]
 layout_mode = 3
@@ -10,13 +11,22 @@ offset_bottom = 27.0
 script = ExtResource("1_qt6be")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=713417530]
-position = Vector2(16, 0)
+position = Vector2(-96, 0)
+texture = ExtResource("2_0yrjj")
 
 [node name="ProgressBar" type="ProgressBar" parent="." unique_id=889547222]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 8.0
-offset_right = 8.0
-offset_bottom = 35.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -82.0
+offset_top = -19.0
+offset_right = 78.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 0
 step = 1.0
+value = 46.0
 rounded = true

@@ -2,9 +2,22 @@
 
 [ext_resource type="Script" uid="uid://b7kskyandvpnw" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://kxi5yci43og0" path="res://scripts/components/velocity.gd" id="2_g2els"]
+[ext_resource type="Script" uid="uid://csn6pjafv0thn" path="res://scripts/components/status_effects.gd" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://b2yomoha8yq08" path="res://icon.svg" id="3_qhqgy"]
+[ext_resource type="Script" uid="uid://bbgtujuks36s1" path="res://scripts/resources/status_effect.gd" id="4_smehm"]
+[ext_resource type="Script" uid="uid://bmbowil6hgx7" path="res://scripts/components/health.gd" id="4_tuyoq"]
+[ext_resource type="Script" uid="uid://cc5brv5b8rhn7" path="res://scripts/components/hurtbox.gd" id="5_fjrip"]
+[ext_resource type="Script" uid="uid://p264gu1epqq8" path="res://scripts/resources/current_effects.gd" id="5_ur7pv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
+
+[sub_resource type="Resource" id="Resource_y4r1p"]
+script = ExtResource("5_ur7pv")
+metadata/_custom_type_script = "uid://p264gu1epqq8"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_smehm"]
+radius = 12.0
+height = 44.0
 
 [node name="player" type="CharacterBody2D" unique_id=1911238687 node_paths=PackedStringArray("velocity_component")]
 script = ExtResource("1_3vyb7")
@@ -20,11 +33,38 @@ shape = SubResource("CapsuleShape2D_u8vuu")
 script = ExtResource("2_g2els")
 characterbody = NodePath("..")
 
+[node name="StatusEffects" type="Node" parent="." unique_id=1223287404 node_paths=PackedStringArray("health_component", "velocity", "container")]
+script = ExtResource("3_dqkch")
+health_component = NodePath("../Health")
+velocity = NodePath("../Velocity")
+container = NodePath("../Camera2D/CanvasLayer/MarginContainer/statusEffects")
+current_effects = SubResource("Resource_y4r1p")
+capacity = 100.0
+cooldown_factor = 10.0
+metadata/_custom_type_script = "uid://csn6pjafv0thn"
+
+[node name="Health" type="Node" parent="." unique_id=1552850037 node_paths=PackedStringArray("display")]
+script = ExtResource("4_tuyoq")
+display = NodePath("../Camera2D/CanvasLayer/MarginContainer/healthDisplay")
+metadata/_custom_type_script = "uid://bmbowil6hgx7"
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1611760110 node_paths=PackedStringArray("health_component", "shape", "effects")]
+script = ExtResource("5_fjrip")
+health_component = NodePath("../Health")
+shape = NodePath("CollisionShape2D")
+effects = NodePath("../StatusEffects")
+cooldown_time = 0.5
+metadata/_custom_type_script = "uid://cc5brv5b8rhn7"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=859681362]
+shape = SubResource("CapsuleShape2D_smehm")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2069320102]
 scale = Vector2(0.15999877, 0.2799999)
 texture = ExtResource("3_qhqgy")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1636364270]
+zoom = Vector2(2, 2)
 limit_smoothed = true
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
@@ -34,9 +74,28 @@ drag_vertical_enabled = true
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=1476454106]
 
 [node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer" unique_id=294874708]
+visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.58431375)
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer" unique_id=1987607365]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+
+[node name="statusEffects" type="GridContainer" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=321117374]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 172
+theme_override_constants/v_separation = 37
+
+[node name="healthDisplay" type="ProgressBar" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=1083620794]
+layout_mode = 2
