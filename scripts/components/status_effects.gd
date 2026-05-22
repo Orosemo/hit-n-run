@@ -7,17 +7,15 @@ class_name StatusEffects
 @export var health_component: Health
 @export var velocity: Velocity
 @export var container: Container
+@export var stats: Stats
 
 @export_category("misc")
 @export var current_effects: CurrentEffects
-@export var effect_factors: Dictionary[int, float]
-@export var capacity: float
-@export var cooldown_factor: float
 
 var tick_timer
 
 func add_effect(effect: StatusEffect):
-	current_effects.add_new_effect(effect, capacity)
+	current_effects.add_new_effect(effect, stats.capacity)
 
 func execute_effects(effect):
 	# reset effects
@@ -44,17 +42,16 @@ func update_effects():
 		if current_effects.check_if_status_effect(effect_id):
 			var effect = current_effects.current_status_effects[effect_id]
 			var decrement := 1.0
-			if effect_factors and effect_factors.has(effect_id):
-				decrement *= effect_factors[effect_id]
+			if stats.effect_factors and stats.effect_factors.has(effect_id):
+				decrement *= stats.effect_factors[effect_id]
 			if effect.active:
-				decrement *= cooldown_factor
+				decrement *= stats.cooldown_factor
 
 			if effect.amount - decrement > 0:
 				effect.amount -= decrement
 			else:
 				effect.amount = 0
 				current_effects.remove_existing_effect(effect.id)
-		print(effect_id)
 
 	render_effects()
 

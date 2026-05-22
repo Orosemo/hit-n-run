@@ -8,7 +8,6 @@
 [sub_resource type="Resource" id="Resource_wpndf"]
 script = ExtResource("4_lfx8k")
 amount = 20.0
-strengh = 1.0
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yltuv"]
@@ -18,7 +17,6 @@ radius = 48.0
 script = ExtResource("4_lfx8k")
 id = 1
 amount = 20.0
-strengh = 1.0
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
 [node name="TestEnv" type="Node2D" unique_id=510128193]
@@ -46,7 +44,6 @@ shape = SubResource("CircleShape2D_yltuv")
 position = Vector2(824, -64)
 script = ExtResource("3_wpndf")
 effect = SubResource("Resource_vswgr")
-damage = 20.0
 shape = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://bnxyg44vj5awm"
 

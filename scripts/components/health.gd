@@ -2,37 +2,36 @@ extends Node
 class_name Health
 
 @export var display: ProgressBar
-@export var health : int
-@export var max_health: int
+@export var stats: Stats
 
 signal death
 
 func heal(amount: int):
-    if health + amount < max_health:
-        health += amount
+    if stats.health + amount < stats.max_health:
+        stats.health += amount
     else :
-        health = max_health
+       stats.health = stats.max_health
     update_display()
 
 func damage (amount: int):
-    if health - amount > 0:
-        health -= amount
+    if stats.health - amount > 0:
+        stats.health -= amount
     else :
-        health = 0
+        stats.health = 0
         death.emit()
     update_display()
 
 func get_health():
-    return health
+    return stats.health
 
 func set_health(new_health: int):
-    health = new_health
+    stats.health = new_health
 
 func update_display():
     if display:
-        display.value = health
+        display.value = stats.health
 
 func _ready():
     display.min_value = 0
-    display.max_value = max_health
-    display.value = max_health
+    display.max_value = stats.max_health
+    display.value = stats.max_health
