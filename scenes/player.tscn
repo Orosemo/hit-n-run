@@ -45,14 +45,14 @@ cooldown_factor = 2.0
 script = ExtResource("3_dqkch")
 health_component = NodePath("../Health")
 velocity = NodePath("../Velocity")
-container = NodePath("../Camera2D/CanvasLayer/MarginContainer/statusEffects")
+container = NodePath("../Camera2D/CanvasLayer/MarginContainer/MarginContainer/statusEffects")
 stats = NodePath("../Stats")
 current_effects = SubResource("Resource_y4r1p")
 metadata/_custom_type_script = "uid://csn6pjafv0thn"
 
 [node name="Health" type="Node" parent="." unique_id=1552850037 node_paths=PackedStringArray("display", "stats")]
 script = ExtResource("4_tuyoq")
-display = NodePath("../Camera2D/CanvasLayer/MarginContainer/healthDisplay")
+display = NodePath("../Camera2D/CanvasLayer/MarginContainer/displays/healthDisplay")
 stats = NodePath("../Stats")
 metadata/_custom_type_script = "uid://bmbowil6hgx7"
 
@@ -96,14 +96,28 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(20, 20)
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="statusEffects" type="GridContainer" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=321117374]
+[node name="displays" type="VBoxContainer" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=1024292707]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/h_separation = 172
-theme_override_constants/v_separation = 37
+size_flags_horizontal = 0
+size_flags_vertical = 0
 
-[node name="healthDisplay" type="ProgressBar" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=1083620794]
+[node name="healthDisplay" type="ProgressBar" parent="Camera2D/CanvasLayer/MarginContainer/displays" unique_id=1083620794]
 layout_mode = 2
+size_flags_vertical = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=206830397]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="statusEffects" type="GridContainer" parent="Camera2D/CanvasLayer/MarginContainer/MarginContainer" unique_id=321117374]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/h_separation = 35
+theme_override_constants/v_separation = 35
+columns = 3

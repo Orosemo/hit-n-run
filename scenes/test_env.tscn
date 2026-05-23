@@ -19,6 +19,18 @@ id = 1
 amount = 20.0
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
+[sub_resource type="Resource" id="Resource_lfx8k"]
+script = ExtResource("4_lfx8k")
+id = 3
+amount = 20.0
+metadata/_custom_type_script = "uid://bbgtujuks36s1"
+
+[sub_resource type="Resource" id="Resource_yltuv"]
+script = ExtResource("4_lfx8k")
+id = 4
+amount = 20.0
+metadata/_custom_type_script = "uid://bbgtujuks36s1"
+
 [node name="TestEnv" type="Node2D" unique_id=510128193]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1102809640]
@@ -48,5 +60,27 @@ shape = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://bnxyg44vj5awm"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collider2" unique_id=131543561]
+position = Vector2(32, 0)
+shape = SubResource("CircleShape2D_yltuv")
+
+[node name="Collider3" type="Area2D" parent="." unique_id=1656986986 node_paths=PackedStringArray("shape")]
+position = Vector2(1184, -128)
+script = ExtResource("3_wpndf")
+effect = SubResource("Resource_lfx8k")
+shape = NodePath("CollisionShape2D")
+metadata/_custom_type_script = "uid://bnxyg44vj5awm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collider3" unique_id=1660719135]
+position = Vector2(32, 0)
+shape = SubResource("CircleShape2D_yltuv")
+
+[node name="Collider4" type="Area2D" parent="." unique_id=1362388615 node_paths=PackedStringArray("shape")]
+position = Vector2(672, -56)
+script = ExtResource("3_wpndf")
+effect = SubResource("Resource_yltuv")
+shape = NodePath("CollisionShape2D")
+metadata/_custom_type_script = "uid://bnxyg44vj5awm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collider4" unique_id=662899177]
 position = Vector2(32, 0)
 shape = SubResource("CircleShape2D_yltuv")

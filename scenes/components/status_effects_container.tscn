@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dn4516k6lvau4"]
+
+[node name="statusEffectsContainer" type="GridContainer" unique_id=1106461891]
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/h_separation = 35
+theme_override_constants/v_separation = 35
+columns = 3

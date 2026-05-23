@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bx2vbbmhvcgty"]
-
-[ext_resource type="Script" uid="uid://7dkhww8lwidy" path="res://scripts/components/effect_container.gd" id="1_f82hf"]
-
-[node name="EffectContainer" type="GridContainer" unique_id=1994515610]
-script = ExtResource("1_f82hf")
