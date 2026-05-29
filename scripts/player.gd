@@ -6,12 +6,21 @@ extends CharacterBody2D
 @export var jump_velo := -400.0
 @export var velocity_component: Velocity
 
+@onready var anim_controller: AnimController = $AnimController
+
 enum States { IDLE, WALKING, SPRINTING, FALLING } 
 
 var state := States.IDLE
 
 func change_state (new_state: States):
-	# used for triggering stuff on specific states
+	# used for triggering stuff on specific states'
+	match new_state:
+		States.IDLE:
+			anim_controller.play_all("idle")
+		States.WALKING:
+			anim_controller.play_all("walk")
+		States.FALLING:
+			anim_controller.play_all("fall")
 	state = new_state
 
 func _process(delta):
@@ -22,10 +31,12 @@ func _process(delta):
 		change_state(States.FALLING)
 	else:
 		change_state(States.IDLE)
+		
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity_component.set_velocity_y(jump_velo)
+		anim_controller.play_all("jump")
 
 	# handle left/right movement
 	var direction := Input.get_axis("left", "right")
@@ -36,6 +47,11 @@ func _process(delta):
 		else:
 			velocity_component.set_velocity_x(direction * stats.current_speed)
 			change_state(States.WALKING)
+			
+		if direction < 0:
+			anim_controller.set_direction_for_all(Vector2(-1, 1))
+		else: 
+			anim_controller.set_direction_for_all(Vector2(1, 1))
 
 	else:
 		if state == States.FALLING:
