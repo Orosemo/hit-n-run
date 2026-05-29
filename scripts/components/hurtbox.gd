@@ -13,15 +13,15 @@ func collision(collider):
 	if collider.effect:
 		effects.add_effect(collider.effect.duplicate())
 	
-	make_invincible()
+	collider.deactivate()
 	cooldown_timer.start()
 	
 
 func make_invincible():
-	shape.disabled = true
+	shape.set_deferred("disabled", true)
 
 func make_vincible():
-	shape.disabled = false
+	shape.set_deferred("disabled", false)
 
 
 func _ready():

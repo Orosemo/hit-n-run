@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-@export var speed := 300.0
+@export var stats: Stats
 @export var springting_speed := 500.0
 @export var jump_velo := -400.0
 @export var velocity_component: Velocity
@@ -34,11 +34,11 @@ func _process(delta):
 			velocity_component.set_velocity_x(direction * springting_speed)
 			change_state(States.SPRINTING)
 		else:
-			velocity_component.set_velocity_x(direction * speed)
+			velocity_component.set_velocity_x(direction * stats.current_speed)
 			change_state(States.WALKING)
 
 	else:
 		if state == States.FALLING:
 			velocity_component.reset_velocity_x(1)
 		else:
-			velocity_component.reset_velocity_x(speed)
+			velocity_component.reset_velocity_x(stats.current_speed)

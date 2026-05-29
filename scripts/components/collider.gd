@@ -7,7 +7,7 @@ class_name Collider
 
 
 func activate():
-    shape.disabled = false
+    shape.set_deferred("disabled", false)
 
 func deactivate():
-    shape.disabled = true
+    shape.set_deferred("disabled", true)
