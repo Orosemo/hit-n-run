@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://diqnddr5r1bow" path="res://scripts/components/anim_controller.gd" id="9_d2wvv"]
 [ext_resource type="Texture2D" uid="uid://bmy4s1b1ct1e8" path="res://assets/player-Sheet.png" id="9_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://w0wk8mbkir17" path="res://assets/player-foot-Sheet.png" id="10_y4r1p"]
+[ext_resource type="Script" uid="uid://nilar1dr6nku" path="res://scripts/components/anim_sprite_2d.gd" id="11_3v2ag"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
 radius = 16.0
@@ -257,7 +258,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 4.0
+"speed": 17.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
@@ -598,20 +599,21 @@ theme_override_constants/h_separation = 35
 theme_override_constants/v_separation = 35
 columns = 3
 
-[node name="AnimController" type="Node2D" parent="." unique_id=627770262 node_paths=PackedStringArray("anims_nodes")]
+[node name="AnimController" type="Node2D" parent="." unique_id=627770262 node_paths=PackedStringArray("anim_nodes_array")]
 script = ExtResource("9_d2wvv")
-anims_nodes = {
-"body": NodePath("player_anim"),
-"feet": NodePath("player_feet_anim")
-}
+anim_nodes_array = [NodePath("player_feet_anim"), NodePath("player_anim")]
 
-[node name="player_feet_anim" type="AnimatedSprite2D" parent="AnimController" unique_id=289884537]
-position = Vector2(-8, -1)
+[node name="player_feet_anim" type="AnimatedSprite2D" parent="AnimController" unique_id=1006709321]
 sprite_frames = SubResource("SpriteFrames_2w11d")
 animation = &"walk"
-frame_progress = 0.13576132
+autoplay = "walk"
+frame = 2
+frame_progress = 0.07064745
+script = ExtResource("11_3v2ag")
+own_name = "feet"
 
-[node name="player_anim" type="AnimatedSprite2D" parent="AnimController" unique_id=811260404]
-position = Vector2(-6, -1)
+[node name="player_anim" type="AnimatedSprite2D" parent="AnimController" unique_id=1091816029]
 sprite_frames = SubResource("SpriteFrames_a8ls1")
-animation = &"idle"
+animation = &"walk"
+script = ExtResource("11_3v2ag")
+own_name = "player"

@@ -13,7 +13,7 @@ func collision(collider):
 	if collider.effect:
 		effects.add_effect(collider.effect.duplicate())
 	
-	collider.deactivate()
+	make_invincible()
 	cooldown_timer.start()
 	
 

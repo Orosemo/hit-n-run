@@ -20,7 +20,7 @@ func change_state (new_state: States):
 		States.WALKING:
 			anim_controller.play_all("walk")
 		States.FALLING:
-			anim_controller.play_all("fall")
+			anim_controller.play_all("fall", true)
 	state = new_state
 
 func _process(delta):
@@ -36,7 +36,7 @@ func _process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity_component.set_velocity_y(jump_velo)
-		anim_controller.play_all("jump")
+		anim_controller.play_all("jump", true)
 
 	# handle left/right movement
 	var direction := Input.get_axis("left", "right")
