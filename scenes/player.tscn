@@ -9,8 +9,8 @@
 [ext_resource type="Script" uid="uid://cc5brv5b8rhn7" path="res://scripts/components/hurtbox.gd" id="5_fjrip"]
 [ext_resource type="Script" uid="uid://p264gu1epqq8" path="res://scripts/resources/current_effects.gd" id="5_ur7pv"]
 [ext_resource type="Script" uid="uid://diqnddr5r1bow" path="res://scripts/components/anim_controller.gd" id="9_d2wvv"]
-[ext_resource type="Texture2D" uid="uid://bmy4s1b1ct1e8" path="res://assets/player-Sheet.png" id="9_ur7pv"]
-[ext_resource type="Texture2D" uid="uid://w0wk8mbkir17" path="res://assets/player-foot-Sheet.png" id="10_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://j1cefw2f0tcu" path="res://assets/player-Sheet.png" id="9_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://p14kxthgniwf" path="res://assets/player-foot-Sheet.png" id="10_y4r1p"]
 [ext_resource type="Script" uid="uid://nilar1dr6nku" path="res://scripts/components/anim_sprite_2d.gd" id="11_3v2ag"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
@@ -27,19 +27,19 @@ height = 72.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j2b1d"]
 atlas = ExtResource("10_y4r1p")
-region = Rect2(1792, 0, 64, 64)
+region = Rect2(1472, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cs1tg"]
 atlas = ExtResource("10_y4r1p")
-region = Rect2(1728, 0, 64, 64)
+region = Rect2(1536, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2dvfe"]
 atlas = ExtResource("10_y4r1p")
-region = Rect2(1664, 0, 64, 64)
+region = Rect2(1600, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_giy8y"]
 atlas = ExtResource("10_y4r1p")
-region = Rect2(1600, 0, 64, 64)
+region = Rect2(1664, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fdfoy"]
 atlas = ExtResource("10_y4r1p")
@@ -175,7 +175,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g5jhy")
 }],
-"loop": true,
+"loop": false,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -411,7 +411,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fulsm")
 }],
-"loop": true,
+"loop": false,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -606,9 +606,7 @@ anim_nodes_array = [NodePath("player_feet_anim"), NodePath("player_anim")]
 [node name="player_feet_anim" type="AnimatedSprite2D" parent="AnimController" unique_id=1006709321]
 sprite_frames = SubResource("SpriteFrames_2w11d")
 animation = &"walk"
-autoplay = "walk"
-frame = 2
-frame_progress = 0.07064745
+frame_progress = 0.7922634
 script = ExtResource("11_3v2ag")
 own_name = "feet"
 

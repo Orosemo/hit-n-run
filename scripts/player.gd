@@ -20,7 +20,7 @@ func change_state (new_state: States):
 		States.WALKING:
 			anim_controller.play_all("walk")
 		States.FALLING:
-			anim_controller.play_all("fall", true)
+			anim_controller.play_all("fall")
 	state = new_state
 
 func _process(delta):
@@ -29,8 +29,6 @@ func _process(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		change_state(States.FALLING)
-	else:
-		change_state(States.IDLE)
 		
 
 	# Handle jump.
@@ -41,12 +39,8 @@ func _process(delta):
 	# handle left/right movement
 	var direction := Input.get_axis("left", "right")
 	if direction:
-		if Input.is_action_pressed("run"):
-			velocity_component.set_velocity_x(direction * springting_speed)
-			change_state(States.SPRINTING)
-		else:
-			velocity_component.set_velocity_x(direction * stats.current_speed)
-			change_state(States.WALKING)
+		velocity_component.set_velocity_x(direction * stats.current_speed)
+		change_state(States.WALKING)
 			
 		if direction < 0:
 			anim_controller.set_direction_for_all(Vector2(-1, 1))
@@ -54,7 +48,8 @@ func _process(delta):
 			anim_controller.set_direction_for_all(Vector2(1, 1))
 
 	else:
-		if state == States.FALLING:
+		if not is_on_floor():
 			velocity_component.reset_velocity_x(1)
 		else:
 			velocity_component.reset_velocity_x(stats.current_speed)
+			change_state(States.IDLE)
