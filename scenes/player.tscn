@@ -223,7 +223,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jump",
-"speed": 5.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -459,7 +459,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jump",
-"speed": 5.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -605,13 +605,14 @@ anim_nodes_array = [NodePath("player_feet_anim"), NodePath("player_anim")]
 
 [node name="player_feet_anim" type="AnimatedSprite2D" parent="AnimController" unique_id=1006709321]
 sprite_frames = SubResource("SpriteFrames_2w11d")
-animation = &"walk"
-frame_progress = 0.7922634
+animation = &"jump"
+frame = 9
+frame_progress = 1.0
 script = ExtResource("11_3v2ag")
 own_name = "feet"
 
 [node name="player_anim" type="AnimatedSprite2D" parent="AnimController" unique_id=1091816029]
 sprite_frames = SubResource("SpriteFrames_a8ls1")
-animation = &"walk"
+animation = &"jump"
 script = ExtResource("11_3v2ag")
 own_name = "player"

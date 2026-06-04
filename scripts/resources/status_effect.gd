@@ -1,12 +1,13 @@
 extends Resource
 class_name StatusEffect
 
-@export var id: int
+@export_enum("poison", "shock", "frost", "death", "fire", "regeneration", "sleep", "confusion", "slowness", "speed", "weakness", "strenght") var id
 @export var amount: float
 @export var strenght: float
 @export var active := false
 var sprite: String
 var capacity: float
+var executed = false
 
 var assets = [
     {
