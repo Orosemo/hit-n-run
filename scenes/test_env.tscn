@@ -7,7 +7,11 @@
 
 [sub_resource type="Resource" id="Resource_wpndf"]
 script = ExtResource("4_lfx8k")
+<<<<<<< HEAD
 id = 0
+=======
+id = 3
+>>>>>>> b2da6cc1004f8edc6db9990b57deeeb8eae99135
 amount = 20.0
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
@@ -29,7 +33,7 @@ metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
 [sub_resource type="Resource" id="Resource_yltuv"]
 script = ExtResource("4_lfx8k")
-id = 4
+id = 7
 amount = 20.0
 strenght = 1.0
 metadata/_custom_type_script = "uid://bbgtujuks36s1"

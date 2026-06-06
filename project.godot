@@ -18,7 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalVars="*uid://8owqvrkchebg"
+<<<<<<< HEAD
 TimeManager="*uid://frci0bbqf0cc"
+=======
+GlobalAssets="*uid://bdcw4r1fb15kn"
+>>>>>>> b2da6cc1004f8edc6db9990b57deeeb8eae99135
 
 [display]
 

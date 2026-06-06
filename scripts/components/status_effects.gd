@@ -54,7 +54,8 @@ func execute_effects():
 							status_effect.executed = true
 					1: # shock
 						if not status_effect.executed:
-							pass
+							velocity.shocked = true
+							status_effect.executed = true
 					2: # frost
 						if not status_effect.executed:
 							stats.speed *= status_effect.strenght
@@ -67,7 +68,6 @@ func execute_effects():
 							stats.health = 5
 					4: # fire
 						stats.health -= status_effect.strenght
-						print("fire")
 					5: # regeneration
 						stats.health += status_effect.strenght
 					6: # sleep
@@ -76,7 +76,8 @@ func execute_effects():
 							status_effect.executed = true
 					7: # confusion
 						if not status_effect.executed:
-							pass
+							velocity.confused = true
+							status_effect.executed = true
 					8: # slowness
 						if not status_effect.executed:
 							stats.speed *= status_effect.strenght
@@ -104,7 +105,7 @@ func execute_effects():
 							stats.speed /= delta_status_effect.strenght
 					1: # shock
 						if delta_status_effect.executed:
-							pass
+							velocity.shocked = false
 					2: # frost
 						if delta_status_effect.executed:
 							stats.speed /= delta_status_effect.strenght
@@ -120,7 +121,7 @@ func execute_effects():
 							stats.speed /= delta_status_effect.strenght
 					7: # confusion
 						if delta_status_effect.executed:
-							pass
+							velocity.confused = false
 					8: # slowness
 						if delta_status_effect.executed:
 							stats.speed -= 1 / delta_status_effect.strenght
