@@ -56,10 +56,10 @@ var status_effect_assets = [
 	"active_empty": "assets/atlas/effects/weakness_active_empty.tres",
 	"active_full": "assets/atlas/effects/weakness_active_full.tres"
 	},{
-	"full": "assets/atlas/effects/strengh_full.tres",
-	"empty": "assets/atlas/effects/strengh_empty.tres",
-	"active_empty": "assets/atlas/effects/strengh_active_empty.tres",
-	"active_full": "assets/atlas/effects/strengh_active_full.tres"
+	"full": "assets/atlas/effects/strenght_full.tres",
+	"empty": "assets/atlas/effects/strenght_empty.tres",
+	"active_empty": "assets/atlas/effects/strenght_active_empty.tres",
+	"active_full": "assets/atlas/effects/strenght_active_full.tres"
 	},
 
 ]

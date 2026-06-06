@@ -22,3 +22,8 @@ func draw_effects(effects: Dictionary):
 		else:
 			if effect.active:
 				draw_emitter(effect)
+	for delta_effect_id in effect_emitters:
+		var delta_effect = effect_emitters[delta_effect_id]
+		if not effects.has(delta_effect_id):
+			delta_effect.queue_free()
+			effect_emitters.erase(delta_effect_id)
