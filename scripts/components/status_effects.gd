@@ -27,6 +27,7 @@ func update_effects():
 			if stats.effect_factors and stats.effect_factors.has(effect_id):
 				decrement *= stats.effect_factors[effect_id]
 			if effect.active:
+				print(decrement)
 				decrement *= stats.cooldown_factor
 
 			if effect.amount - decrement > 0:
@@ -48,7 +49,6 @@ func execute_effects():
 		var delta_status_effect =  current_status_effects_delta[effect]
 		if current_status_effects_delta.has(effect):
 			if status_effect.active:
-				print("effect executed")
 				match current_effects.current_status_effects[effect].id:
 					0: # poison
 						if not status_effect.executed:
@@ -100,7 +100,6 @@ func execute_effects():
 		# remove effect executions
 		else:
 			if delta_status_effect.active:
-				print("not executed")
 				match current_status_effects_delta[effect].id:
 					0: # poison
 						if delta_status_effect.executed:
