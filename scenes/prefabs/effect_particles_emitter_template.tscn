@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bhrnihg27hnnh"]
+
+[ext_resource type="Texture2D" uid="uid://sf6odop3b437" path="res://assets/atlas/effect_particles/death.tres" id="1_yvblf"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_f1ej7"]
+particles_animation = true
+particles_anim_h_frames = 7
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[node name="effect_particles_emitter_template" type="CPUParticles2D" unique_id=722454574]
+material = SubResource("CanvasItemMaterial_f1ej7")
+emitting = false
+texture = ExtResource("1_yvblf")
+lifetime = 0.5
+lifetime_randomness = 0.27
+emission_shape = 1
+emission_sphere_radius = 36.45
+direction = Vector2(10, 0)
+gravity = Vector2(0, -500)
+initial_velocity_max = 10.0
+scale_amount_min = 0.2
+anim_speed_min = 1.0
+anim_speed_max = 1.0

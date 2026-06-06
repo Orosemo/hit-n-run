@@ -8,6 +8,7 @@ class_name StatusEffects
 @export var velocity: Velocity
 @export var container: Container
 @export var stats: Stats
+@export var effect_particles: EffectParticles
 
 @export_category("misc")
 @export var current_effects: CurrentEffects
@@ -35,6 +36,7 @@ func update_effects():
 				current_effects.remove_existing_effect(effect.id)
 
 	render_effects()
+	effect_particles.draw_effects(current_effects.current_status_effects)
 	execute_effects()
  
 func execute_effects():

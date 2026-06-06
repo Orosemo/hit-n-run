@@ -63,3 +63,18 @@ var status_effect_assets = [
 	},
 
 ]
+
+var status_effect_anims_assets = [
+	"assets/atlas/effect_particles/poison.tres",
+	"assets/atlas/effect_particles/shock.tres",
+	"assets/atlas/effect_particles/frost.tres",
+	"assets/atlas/effect_particles/death.tres",
+	"assets/atlas/effect_particles/fire.tres",
+	"assets/atlas/effect_particles/regeneration.tres",
+	"assets/atlas/effect_particles/sleep.tres",
+	"assets/atlas/effect_particles/confusion.tres",
+	"assets/atlas/effect_particles/slowness.tres",
+	"assets/atlas/effect_particles/speed.tres",
+	"assets/atlas/effect_particles/weakness.tres",
+	"assets/atlas/effect_particles/strenght.tres",
+]
