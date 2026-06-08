@@ -27,7 +27,6 @@ func update_effects():
 			if stats.effect_factors and stats.effect_factors.has(effect_id):
 				decrement *= stats.effect_factors[effect_id]
 			if effect.active:
-				print(decrement)
 				decrement *= stats.cooldown_factor
 
 			if effect.amount - decrement > 0:
@@ -46,13 +45,23 @@ func execute_effects():
 
 	for effect in current_effects.current_status_effects:
 		var status_effect = current_effects.current_status_effects[effect]
+		# calculate strenght
+		var strenght = status_effect.strenght
+		if stats.effect_factors and stats.effect_factors.has(status_effect.id):
+			strenght *= stats.effect_factors[status_effect.id]
+
 		var delta_status_effect =  current_status_effects_delta[effect]
+
+		var delta_strenght = status_effect.strenght
+		if stats.effect_factors and stats.effect_factors.has(delta_status_effect.id):
+			delta_strenght *= stats.effect_factors[delta_status_effect.id]
+			
 		if current_status_effects_delta.has(effect):
 			if status_effect.active:
 				match current_effects.current_status_effects[effect].id:
 					0: # poison
 						if not status_effect.executed:
-							stats.speed *= status_effect.strenght
+							stats.speed *= strenght
 							status_effect.executed = true
 					1: # shock
 						if not status_effect.executed:
@@ -60,21 +69,21 @@ func execute_effects():
 							status_effect.executed = true
 					2: # frost
 						if not status_effect.executed:
-							stats.speed *= status_effect.strenght
-							stats.shield_factor *= status_effect.strenght
+							stats.current_speed *= strenght 
+							stats.shield_factor *= strenght
 							status_effect.executed = true
 					3: # death
-						if not stats.health * status_effect.strenght > 5:
-							stats.health *= status_effect.strenght
+						if not stats.health * strenght > 5:
+							health_component.set_health(health_component.get_health() * strenght)
 						else:
 							stats.health = 5
 					4: # fire
-						stats.health -= status_effect.strenght
+						health_component.set_health(health_component.get_health() - strenght)
 					5: # regeneration
-						stats.health += status_effect.strenght
+						stats.health += strenght
 					6: # sleep
 						if not status_effect.executed:
-							stats.speed *= status_effect.strenght
+							stats.current_speed *= strenght
 							status_effect.executed = true
 					7: # confusion
 						if not status_effect.executed:
@@ -82,19 +91,19 @@ func execute_effects():
 							status_effect.executed = true
 					8: # slowness
 						if not status_effect.executed:
-							stats.speed *= status_effect.strenght
+							stats.current_speed *= strenght
 							status_effect.executed = true
 					9: # speed
 						if not status_effect.executed:
-							stats.speed *= status_effect.strenght
+							stats.current_speed *= strenght
 							status_effect.executed = true
 					10: # weakness
 						if not status_effect.executed:
-							stats.damage_factor *= status_effect.strenght
+							stats.damage_factor *= strenght
 							status_effect.executed = true
-					11: # strength
+					11: # strenght
 						if not status_effect.executed:
-							stats.damage_factor -= 1 * status_effect.strenght
+							stats.damage_factor -= 1 * strenght
 							status_effect.executed = true
 
 		# remove effect executions
@@ -103,38 +112,38 @@ func execute_effects():
 				match current_status_effects_delta[effect].id:
 					0: # poison
 						if delta_status_effect.executed:
-							stats.speed /= delta_status_effect.strenght
+							stats.current_speed /= delta_strenght
 					1: # shock
 						if delta_status_effect.executed:
 							velocity.shocked = false
 					2: # frost
 						if delta_status_effect.executed:
-							stats.speed /= delta_status_effect.strenght
-							stats.shield_factor /= delta_status_effect.strenght
+							stats.current_speed /= delta_strenght
+							stats.shield_factor /= delta_strenght
 					3: # death
 						pass
 					4: # fire
 						pass
 					5: # regeneration
-						stats.health += delta_status_effect.strenght
+						stats.health += delta_strenght
 					6: # sleep
 						if delta_status_effect.executed:
-							stats.speed /= delta_status_effect.strenght
+							stats.current_speed /= delta_strenght
 					7: # confusion
 						if delta_status_effect.executed:
 							velocity.confused = false
 					8: # slowness
 						if delta_status_effect.executed:
-							stats.speed -= 1 / delta_status_effect.strenght
+							stats.current_speed -= 1 / delta_strenght
 					9: # speed
 						if delta_status_effect.executed:
-							stats.speed -= 1 / delta_status_effect.strenght
+							stats.current_speed -= 1 / delta_strenght
 					10: # weakness
 						if delta_status_effect.executed:
-							stats.damage_factor -= 1 / delta_status_effect.strenght
-					11: # strength
+							stats.damage_factor -= 1 / delta_strenght
+					11: # strenght
 						if delta_status_effect.executed:
-							stats.damage_factor -= 1 / delta_status_effect.strenght
+							stats.damage_factor -= 1 / delta_strenght
 		
 		health_component.update_display()
 

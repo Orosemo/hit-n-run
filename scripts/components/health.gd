@@ -14,8 +14,8 @@ func heal(amount: int):
     update_display()
 
 func damage (amount: int):
-    if stats.health - amount > 0:
-        stats.health -= amount
+    if stats.health - amount * stats.shield_factor  > 0:
+        stats.health -= amount * stats.shield_factor
     else :
         stats.health = 0
         death.emit()
@@ -25,7 +25,8 @@ func get_health():
     return stats.health
 
 func set_health(new_health: int):
-    stats.health = new_health
+    stats.health = new_health 
+    update_display()
 
 func update_display():
     if display:

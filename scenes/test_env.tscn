@@ -11,14 +11,9 @@
 
 [sub_resource type="Resource" id="Resource_wpndf"]
 script = ExtResource("4_lfx8k")
-<<<<<<< HEAD
 id = 2
 amount = 20.0
-=======
-id = 3
-amount = 50.0
 strenght = 0.9
->>>>>>> cfdd99e9b0fd93ee49a230d9d6bbefc281ac46c5
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yltuv"]
@@ -26,21 +21,21 @@ radius = 48.0
 
 [sub_resource type="Resource" id="Resource_vswgr"]
 script = ExtResource("4_lfx8k")
-id = 11
-amount = 50.0
+id = 1
+amount = 20.0
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
 [sub_resource type="Resource" id="Resource_lfx8k"]
 script = ExtResource("4_lfx8k")
-id = 2
-amount = 50.0
+id = 3
+amount = 20.0
 strenght = 0.9
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
 [sub_resource type="Resource" id="Resource_yltuv"]
 script = ExtResource("4_lfx8k")
-id = 4
-amount = 50.0
+id = 7
+amount = 20.0
 strenght = 1.0
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
