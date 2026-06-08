@@ -4,10 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://bip01w6qk85o1" path="res://scenes/player.tscn" id="1_yl55h"]
 [ext_resource type="Script" uid="uid://bnxyg44vj5awm" path="res://scripts/components/collider.gd" id="3_wpndf"]
 [ext_resource type="Script" uid="uid://bbgtujuks36s1" path="res://scripts/resources/status_effect.gd" id="4_lfx8k"]
+[ext_resource type="PackedScene" uid="uid://bhrnihg27hnnh" path="res://scenes/prefabs/effect_particles_emitter_template.tscn" id="5_50qfi"]
+[ext_resource type="Texture2D" uid="uid://da2l62hm54yu7" path="res://assets/atlas/effect_particles/frost.tres" id="6_u72b4"]
+[ext_resource type="Texture2D" uid="uid://8bplvrhltopq" path="res://assets/atlas/effect_particles/shock.tres" id="7_douh2"]
+[ext_resource type="Texture2D" uid="uid://bnlisd2lonlkr" path="res://assets/atlas/effect_particles/confusion.tres" id="8_faimo"]
 
 [sub_resource type="Resource" id="Resource_wpndf"]
 script = ExtResource("4_lfx8k")
-id = 3
+id = 2
 amount = 20.0
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
@@ -54,6 +58,12 @@ metadata/_custom_type_script = "uid://bnxyg44vj5awm"
 position = Vector2(32, 0)
 shape = SubResource("CircleShape2D_yltuv")
 
+[node name="effect_particles_emitter_template" parent="Collider" unique_id=722454574 instance=ExtResource("5_50qfi")]
+position = Vector2(32, 16)
+emitting = true
+texture = ExtResource("6_u72b4")
+emission_sphere_radius = 52.19
+
 [node name="Collider2" type="Area2D" parent="." unique_id=418824024 node_paths=PackedStringArray("shape")]
 position = Vector2(824, -64)
 script = ExtResource("3_wpndf")
@@ -64,6 +74,12 @@ metadata/_custom_type_script = "uid://bnxyg44vj5awm"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collider2" unique_id=131543561]
 position = Vector2(32, 0)
 shape = SubResource("CircleShape2D_yltuv")
+
+[node name="effect_particles_emitter_template2" parent="Collider2" unique_id=575822778 instance=ExtResource("5_50qfi")]
+position = Vector2(32, 16)
+emitting = true
+texture = ExtResource("7_douh2")
+emission_sphere_radius = 33.03
 
 [node name="Collider3" type="Area2D" parent="." unique_id=1656986986 node_paths=PackedStringArray("shape")]
 position = Vector2(1184, -128)
@@ -76,6 +92,12 @@ metadata/_custom_type_script = "uid://bnxyg44vj5awm"
 position = Vector2(32, 0)
 shape = SubResource("CircleShape2D_yltuv")
 
+[node name="effect_particles_emitter_template3" parent="Collider3" unique_id=2102079419 instance=ExtResource("5_50qfi")]
+position = Vector2(-480, 80)
+emitting = true
+texture = ExtResource("8_faimo")
+emission_sphere_radius = 46.72
+
 [node name="Collider4" type="Area2D" parent="." unique_id=1362388615 node_paths=PackedStringArray("shape")]
 position = Vector2(672, -56)
 script = ExtResource("3_wpndf")
@@ -84,5 +106,10 @@ shape = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://bnxyg44vj5awm"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collider4" unique_id=662899177]
-position = Vector2(32, 0)
+position = Vector2(32, -8)
 shape = SubResource("CircleShape2D_yltuv")
+
+[node name="effect_particles_emitter_template4" parent="Collider4" unique_id=318094364 instance=ExtResource("5_50qfi")]
+position = Vector2(544, -64)
+emitting = true
+emission_sphere_radius = 45.35

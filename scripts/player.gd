@@ -24,6 +24,11 @@ func change_state (new_state: States):
 
 func _process(delta):
 
+	if Input.is_action_just_pressed("skin 1"):
+		$PalletSwapController.set_pallet_all("green")
+	elif Input.is_action_just_pressed("skin 2"):
+		$PalletSwapController.set_pallet_all("blue")
+
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta

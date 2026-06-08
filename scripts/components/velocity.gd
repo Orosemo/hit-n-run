@@ -55,7 +55,6 @@ func reset_velocity_y(speed: float):
 	characterbody.move_and_slide()
 
 func shock():
-	print("shock")
 	if shocked:
 		freeze = not freeze
 
@@ -64,6 +63,5 @@ func _ready():
 	timer.wait_time = 0.3
 	timer.one_shot = false
 	timer.timeout.connect(shock)
-	print("hmmm")
 	add_child(timer)
 	timer.start()
