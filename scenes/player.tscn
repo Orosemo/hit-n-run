@@ -549,8 +549,10 @@ health = 100
 max_health = 100
 current_speed = 300.0
 speed = 300.0
+damage_factor = 10.0
+shield_factor = 20.0
 capacity = 100.0
-cooldown_factor = 2.0
+cooldown_factor = 1.0
 
 [node name="StatusEffects" type="Node" parent="." unique_id=1223287404 node_paths=PackedStringArray("health_component", "velocity", "container", "stats", "effect_particles")]
 script = ExtResource("3_dqkch")
