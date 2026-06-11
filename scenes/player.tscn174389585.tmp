@@ -21,7 +21,7 @@
 [ext_resource type="Script" uid="uid://vrs1twpulcy0" path="res://addons/PaletteSwapShader/PaletteMaterial.gd" id="13_qfm1y"]
 [ext_resource type="Script" uid="uid://c8ikdt1ttmmku" path="res://scripts/components/effect_particles.gd" id="14_f1ej7"]
 [ext_resource type="PackedScene" uid="uid://bhrnihg27hnnh" path="res://scenes/prefabs/effect_particles_emitter_template.tscn" id="14_oprun"]
-[ext_resource type="Texture2D" uid="uid://cm3652wync2wm" path="res://assets/hud.png" id="22_a38lo"]
+[ext_resource type="Texture2D" uid="uid://ddmbbw23yrlrk" path="res://assets/hud.png" id="22_a38lo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i4ail"]
 script = ExtResource("13_qfm1y")
@@ -512,11 +512,11 @@ height = 72.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2w11d"]
 atlas = ExtResource("22_a38lo")
-region = Rect2(7, 12, 162, 27)
+region = Rect2(5, 4, 87, 9)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_770dr"]
 atlas = ExtResource("22_a38lo")
-region = Rect2(7, 60, 162, 27)
+region = Rect2(5, 20, 87, 9)
 
 [node name="player" type="CharacterBody2D" unique_id=1911238687 node_paths=PackedStringArray("stats", "velocity_component")]
 script = ExtResource("1_3vyb7")
@@ -575,7 +575,7 @@ metadata/_custom_type_script = "uid://csn6pjafv0thn"
 
 [node name="Health" type="Node" parent="." unique_id=1552850037 node_paths=PackedStringArray("display", "stats")]
 script = ExtResource("4_tuyoq")
-display = NodePath("../Camera2D/CanvasLayer/MarginContainer/displays/healthDisplay")
+display = NodePath("")
 stats = NodePath("../Stats")
 metadata/_custom_type_script = "uid://bmbowil6hgx7"
 

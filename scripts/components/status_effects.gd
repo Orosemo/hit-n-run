@@ -4,7 +4,7 @@ class_name StatusEffects
 @onready var effect_display_scene = load("res://scenes/components/effect_display.tscn")
 
 @export_category("needed components")
-@export var health_component: Health
+@export var health_component: Node
 @export var velocity: Velocity
 @export var container: Container
 @export var stats: Stats

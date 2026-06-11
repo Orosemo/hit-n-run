@@ -13,7 +13,7 @@
 script = ExtResource("4_lfx8k")
 id = 2
 amount = 20.0
-strenght = 0.9
+strenght = 0.1
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yltuv"]
