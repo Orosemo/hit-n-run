@@ -73,7 +73,7 @@ func execute_effects():
 							stats.shield_factor *= strenght
 							status_effect.executed = true
 					3: # death
-						if not stats.health * status_effect.strenght > 5:
+						if not stats.health * status_effect.strenght < 5:
 							stats.health *= status_effect.strenght
 						else:
 							stats.health = 5
