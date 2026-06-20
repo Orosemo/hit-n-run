@@ -3,6 +3,5 @@
 
 # Godot 4+ specific ignores
 .godot/
-/android/
-/.vscode/
-.vscode/settings.json
+.android/
+.vscode/
