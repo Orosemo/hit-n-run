@@ -158,12 +158,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_giy8y")
 }],
-"loop": false,
+"loop": 0,
 "name": &"death",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -177,7 +177,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g5jhy")
 }],
-"loop": false,
+"loop": 0,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -188,7 +188,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mx1m4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -223,7 +223,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8svfe")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump",
 "speed": 20.0
 }, {
@@ -258,7 +258,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8txt3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 17.0
 }]
@@ -399,12 +399,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jej6c")
 }],
-"loop": false,
+"loop": 0,
 "name": &"death",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -418,7 +418,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fulsm")
 }],
-"loop": false,
+"loop": 0,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -429,7 +429,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_oprun")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 3.0
 }, {
@@ -458,7 +458,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pf23h")
 }],
-"loop": false,
+"loop": 0,
 "name": &"jump",
 "speed": 20.0
 }, {
@@ -493,7 +493,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_t4otl")
 }],
-"loop": true,
+"loop": 1,
 "name": &"walk",
 "speed": 5.0
 }]
@@ -522,6 +522,9 @@ region = Rect2(7, 60, 162, 27)
 script = ExtResource("1_3vyb7")
 stats = NodePath("Stats")
 velocity_component = NodePath("Velocity")
+jump_buffer = 13
+coyote_time = 1
+gravity_mult = 0.1
 
 [node name="AnimController" type="Node2D" parent="." unique_id=627770262 node_paths=PackedStringArray("anim_nodes_array")]
 script = ExtResource("9_d2wvv")
@@ -556,10 +559,11 @@ characterbody = NodePath("..")
 script = ExtResource("3_ur7pv")
 health = 100
 max_health = 100
-current_speed = 300.0
-speed = 300.0
+current_speed = 150.0
+speed = 150.0
 damage_factor = 10.0
 shield_factor = 20.0
+jump_velo = -300
 capacity = 100.0
 cooldown_factor = 1.0
 
@@ -609,6 +613,12 @@ emitter_container = NodePath("container")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox" unique_id=859681362]
 shape = SubResource("CapsuleShape2D_smehm")
+
+[node name="left" type="RayCast2D" parent="." unique_id=1836250738]
+target_position = Vector2(-32, 0)
+
+[node name="right" type="RayCast2D" parent="." unique_id=551707948]
+target_position = Vector2(32, 0)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1636364270]
 zoom = Vector2(2, 2)

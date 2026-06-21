@@ -1,18 +1,27 @@
 extends CharacterBody2D
 
-
 @export var stats: Stats
-@export var jump_velo := -400.0
 @export var velocity_component: Velocity
+@export var jump_buffer := 6
+@export var coyote_time := 5
+@export var gravity_mult := 0.5
 
+@onready var right: RayCast2D = $right
+@onready var left: RayCast2D = $left
 @onready var anim_controller: AnimController = $AnimController
 
 enum States { IDLE, WALKING, SPRINTING, FALLING } 
 
+var jump_buffer_timer = null
+var coyote_time_timer = null
+var gravity_mult_timer = 1
+var grav_timer = 0
+
 var state := States.IDLE
 
 func change_state (new_state: States):
-	# used for triggering stuff on specific states'
+
+	# used for triggering stuff on specific states
 	match new_state:
 		States.IDLE:
 			anim_controller.play_all("idle")
@@ -20,25 +29,67 @@ func change_state (new_state: States):
 			anim_controller.play_all("walk")
 		States.FALLING:
 			anim_controller.play_all("fall")
+
+	# check for previous state
+	match state:
+		States.FALLING:
+			gravity_mult_timer = 1
+
 	state = new_state
 
 func _process(delta):
+	
+	# midair funcs
+	if not is_on_floor():
+		# timers
+		if not jump_buffer_timer == null:
+			if jump_buffer_timer - 1 >= 0:
+				jump_buffer_timer -= 1
+			else :
+				jump_buffer_timer = null
 
-	if Input.is_action_just_pressed("skin 1"):
-		$PalletSwapController.set_pallet_all("green")
-	elif Input.is_action_just_pressed("skin 2"):
-		$PalletSwapController.set_pallet_all("blue")
+		if not coyote_time_timer == null:
+			if coyote_time_timer - 1 >= 0:
+				coyote_time_timer -= 1
+			else :
+				coyote_time_timer = 0
 
 	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+		if is_on_wall():
+			velocity_component.add_velocity(get_gravity() * delta / 2)
+		else:
+			velocity_component.add_velocity(get_gravity() * delta * gravity_mult_timer)
 		change_state(States.FALLING)
-		
+		coyote_time_timer = coyote_time		
+
+	else:
+		jump_buffer_timer = null
+		coyote_time_timer = null
+
+		if jump_buffer_timer != null:
+			jump(stats.jump_velo)
+
+	if state == States.FALLING:
+		grav_timer += 1
+		if grav_timer == 1000:
+			gravity_mult_timer += gravity_mult
+			grav_timer = 0
+
+	# wall jump
+	if right.is_colliding() and Input.is_action_just_pressed("jump"):
+		jump(stats.jump_velo / 2)
+		velocity_component.add_velocity_x(-150)
+	elif left.is_colliding() and Input.is_action_just_pressed("jump"):
+		jump(stats.jump_velo / 2)
+		velocity_component.add_velocity_x(150)
 
 	# Handle jump.
-	if Input.is_action_pressed("jump") and is_on_floor():
-		velocity_component.set_velocity_y(jump_velo)
-		anim_controller.play_all("jump", true)
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or
+	(coyote_time_timer != null and coyote_time_timer != 0)):
+		jump(stats.jump_velo)
+		coyote_time_timer = 0
+	elif Input.is_action_just_pressed("jump") and not is_on_floor():
+		jump_buffer_timer = jump_buffer
 
 	# handle left/right movement
 	var direction := Input.get_axis("left", "right")
@@ -57,3 +108,8 @@ func _process(delta):
 		else:
 			velocity_component.reset_velocity_x(stats.current_speed)
 			change_state(States.IDLE)
+	move_and_slide()
+
+func jump(value : float):
+	velocity_component.set_velocity_y(value)
+	anim_controller.play_all("jump", true)

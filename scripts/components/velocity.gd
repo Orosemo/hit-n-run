@@ -54,6 +54,20 @@ func reset_velocity_y(speed: float):
 	characterbody.velocity.y = move_toward(characterbody.velocity.y, 0, speed)
 	characterbody.move_and_slide()
 
+# add velocities
+func add_velocity(direction: Vector2):
+	characterbody.velocity.x += direction.x
+	characterbody.velocity.y += direction.y
+	characterbody.move_and_slide()
+
+func add_velocity_x(speed: float):
+	characterbody.velocity.x += speed
+	characterbody.move_and_slide()
+
+func add_velocity_y(speed: float):
+	characterbody.velocity.y += speed
+	characterbody.move_and_slide()
+
 func shock():
 	if shocked:
 		freeze = not freeze

@@ -8,6 +8,7 @@ class_name Stats
 @export var speed:float
 @export var damage_factor: float
 @export var shield_factor: float
+@export var jump_velo: int 
 
 @export_category("status effects")
 @export var effect_factors: Dictionary[int, float]
