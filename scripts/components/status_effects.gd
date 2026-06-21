@@ -51,7 +51,7 @@ func execute_effects():
 			strenght *= stats.effect_factors[status_effect.id]
 
 		var delta_status_effect =  current_status_effects_delta[effect]
-
+		# calculate delta strenght
 		var delta_strenght = status_effect.strenght
 		if stats.effect_factors and stats.effect_factors.has(delta_status_effect.id):
 			delta_strenght *= stats.effect_factors[delta_status_effect.id]
@@ -72,7 +72,7 @@ func execute_effects():
 							stats.current_speed *= strenght 
 							stats.shield_factor *= strenght
 							status_effect.executed = true
-					3: # death
+					3: # decay
 						if not stats.health * status_effect.strenght < 5:
 							stats.health *= status_effect.strenght
 						else:
@@ -80,7 +80,7 @@ func execute_effects():
 					4: # fire
 						health_component.set_health(health_component.get_health() - strenght)
 					5: # regeneration
-						stats.health += strenght
+						health_component.set_health(health_component.get_health() + strenght)
 					6: # sleep
 						if not status_effect.executed:
 							stats.current_speed *= strenght
