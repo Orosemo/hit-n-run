@@ -162,12 +162,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_giy8y")
 }],
-"loop": 0,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": 1,
+"loop": true,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -181,7 +181,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g5jhy")
 }],
-"loop": 0,
+"loop": false,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -192,7 +192,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mx1m4")
 }],
-"loop": 1,
+"loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -227,7 +227,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8svfe")
 }],
-"loop": 0,
+"loop": false,
 "name": &"jump",
 "speed": 20.0
 }, {
@@ -262,7 +262,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8txt3")
 }],
-"loop": 1,
+"loop": true,
 "name": &"walk",
 "speed": 17.0
 }]
@@ -395,12 +395,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jej6c")
 }],
-"loop": 0,
+"loop": false,
 "name": &"death",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": 1,
+"loop": true,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -414,7 +414,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fulsm")
 }],
-"loop": 0,
+"loop": false,
 "name": &"fall",
 "speed": 5.0
 }, {
@@ -425,7 +425,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_oprun")
 }],
-"loop": 1,
+"loop": true,
 "name": &"idle",
 "speed": 3.0
 }, {
@@ -454,7 +454,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pf23h")
 }],
-"loop": 0,
+"loop": false,
 "name": &"jump",
 "speed": 20.0
 }, {
@@ -489,7 +489,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_t4otl")
 }],
-"loop": 1,
+"loop": true,
 "name": &"walk",
 "speed": 5.0
 }]
@@ -506,6 +506,10 @@ metadata/_custom_type_script = "uid://p264gu1epqq8"
 radius = 20.0
 height = 72.0
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i4ail"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a38lo"]
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2w11d"]
 atlas = ExtResource("22_a38lo")
 region = Rect2(7, 12, 162, 27)
@@ -518,8 +522,8 @@ region = Rect2(7, 60, 162, 27)
 script = ExtResource("1_3vyb7")
 stats = NodePath("Stats")
 velocity_component = NodePath("Velocity")
-jump_buffer = 13
-coyote_time = 1
+jump_buffer = 100
+coyote_time = 100
 gravity_mult = 0.1
 
 [node name="AnimController" type="Node2D" parent="." unique_id=627770262 node_paths=PackedStringArray("anim_nodes_array")]
@@ -610,11 +614,13 @@ emitter_container = NodePath("container")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Hurtbox" unique_id=859681362]
 shape = SubResource("CapsuleShape2D_smehm")
 
-[node name="left" type="RayCast2D" parent="." unique_id=1836250738]
-target_position = Vector2(-32, 0)
+[node name="left" type="ShapeCast2D" parent="." unique_id=184807149]
+shape = SubResource("RectangleShape2D_i4ail")
+target_position = Vector2(-31, 17)
 
-[node name="right" type="RayCast2D" parent="." unique_id=551707948]
-target_position = Vector2(32, 0)
+[node name="right" type="ShapeCast2D" parent="." unique_id=353038008]
+shape = SubResource("RectangleShape2D_a38lo")
+target_position = Vector2(31, 17)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1636364270]
 zoom = Vector2(2, 2)
