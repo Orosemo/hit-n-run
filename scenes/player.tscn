@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bip01w6qk85o1"]
 
 [ext_resource type="Script" uid="uid://b7kskyandvpnw" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://dcnt2goyjrqnk" path="res://assets/light/32x32 textures (60).png" id="2_a38lo"]
 [ext_resource type="Script" uid="uid://kxi5yci43og0" path="res://scripts/components/velocity.gd" id="2_g2els"]
 [ext_resource type="Script" uid="uid://csn6pjafv0thn" path="res://scripts/components/status_effects.gd" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://cp0xdx1brar7k" path="res://scripts/components/stats.gd" id="3_ur7pv"]
@@ -526,6 +527,14 @@ jump_buffer = 100
 coyote_time = 100
 gravity_mult = 0.1
 
+[node name="DirectionalLight2D2" type="PointLight2D" parent="." unique_id=1270015219]
+energy = 0.25
+shadow_enabled = true
+shadow_filter = 2
+shadow_filter_smooth = 1.5
+texture = ExtResource("2_a38lo")
+texture_scale = 10.32
+
 [node name="AnimController" type="Node2D" parent="." unique_id=627770262 node_paths=PackedStringArray("anim_nodes_array")]
 script = ExtResource("9_d2wvv")
 anim_nodes_array = [NodePath("player_feet_anim"), NodePath("player_anim")]
@@ -543,9 +552,6 @@ sprite_frames = SubResource("SpriteFrames_a8ls1")
 animation = &"fall"
 script = ExtResource("11_3v2ag")
 own_name = "player"
-
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="." unique_id=1172652752]
-energy = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=758999050]
 position = Vector2(0, -1)

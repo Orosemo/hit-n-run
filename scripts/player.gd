@@ -17,7 +17,7 @@ var jump_buffer_timer = null
 var coyote_time_timer = null
 var gravity_mult_timer = 1
 var grav_timer = 0
-var jump_strenght := 0.1
+var jump_strenght := 0.6
 var jump_timer := 0
 
 var state := States.IDLE
@@ -125,6 +125,7 @@ func _input(event: InputEvent) -> void:
 		jump(stats.jump_velo * jump_strenght)
 		jump_strenght = 0.6
 		jump_timer = 0
+		change_state(States.FALLING)
 
 
 	# Handle jump.

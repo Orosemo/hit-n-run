@@ -38,3 +38,7 @@ New status effects can be added by:
 2. adding the sprites of the effect for the effect display and particles in `scripts/globals/global_assets.gd`
 3. adding an execution in `scripts/components/status_effects.gd`
 4. enjoy your new effect
+
+
+## Thanks
+- [pixelfranek](https://pixelfranek.itch.io/free-textures-of-light) for the light textures
