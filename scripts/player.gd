@@ -71,15 +71,9 @@ func _process(delta):
 		jump_buffer_timer = null
 		coyote_time_timer = null
 
+		# start charging jump
 		if Input.is_action_just_pressed("jump"):
 			change_state(States.JUMP_PREPARE)
-		if Input.is_action_just_released("jump"):
-			if jump_strenght <= 0.7:
-				jump(stats.jump_velo)
-			else:
-				jump(stats.jump_velo * jump_strenght)
-			jump_strenght = 0.5
-			jump_timer = 0
 
 	if state == States.FALLING:
 		grav_timer += 1
@@ -88,14 +82,12 @@ func _process(delta):
 			grav_timer = 0
 
 	if state == States.JUMP_PREPARE:
-		print("yay")
 		jump_timer += 1
 		if jump_timer == 100:
-			print("yay2")
-			if not jump_strenght >= 1.2:
+			if not jump_strenght >= 1.5:
 				jump_strenght += jump_factor
 			else:
-				jump_strenght = 1.2
+				jump_strenght = 1.5
 				jump_timer = 0
 
 	# wall jump
@@ -104,16 +96,7 @@ func _process(delta):
 		
 	elif left.is_colliding() and Input.is_action_just_pressed("jump"):
 		jump(stats.jump_velo / 2)
-		
 
-	# Handle jump.
-	if state != States.JUMP_PREPARE:
-		if Input.is_action_just_pressed("jump") and coyote_time_timer != 0 and coyote_time_timer != null:
-			jump(stats.jump_velo)
-			coyote_time_timer = 0
-		if Input.is_action_just_pressed("jump") and not is_on_floor():
-			jump_buffer_timer = jump_buffer
-		
 
 	# handle left/right movement
 	var direction := Input.get_axis("left", "right")
@@ -121,19 +104,36 @@ func _process(delta):
 		velocity_component.set_velocity_x(direction * stats.current_speed)
 		change_state(States.WALKING)
 			
+		# sets direction of sprite
 		if direction < 0:
 			anim_controller.set_direction_for_all(Vector2(-1, 1))
 		else:
 			anim_controller.set_direction_for_all(Vector2(1, 1))
 
-	else:
+	elif not direction:
 		if not is_on_floor():
 			velocity_component.reset_velocity_x(1)
 		else:
+			velocity_component.reset_velocity_x(stats.current_speed)
 			if state != States.JUMP_PREPARE:
-				velocity_component.reset_velocity_x(stats.current_speed)
 				change_state(States.IDLE)
 	move_and_slide()
+
+func _input(event: InputEvent) -> void:
+	# relase jump
+	if event.is_action_released("jump") and is_on_floor():
+		jump(stats.jump_velo * jump_strenght)
+		jump_strenght = 0.6
+		jump_timer = 0
+
+
+	# Handle jump.
+	if state != States.JUMP_PREPARE:
+		if event.is_action_pressed("jump") and coyote_time_timer != 0 and coyote_time_timer != null:
+			jump(stats.jump_velo)
+			coyote_time_timer = 0
+		if event.is_action_pressed("jump") and not is_on_floor():
+			jump_buffer_timer = jump_buffer
 
 func jump(value: float):
 	velocity_component.set_velocity_y(value)
