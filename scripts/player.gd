@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var jump_buffer := 6
 @export var coyote_time := 5
 @export var gravity_mult := 0.5
-@export var jump_factor := 0.5
+@export var jump_factor := 0.2
 
 @onready var right: ShapeCast2D = $right
 @onready var left: ShapeCast2D = $left
@@ -61,6 +61,7 @@ func _process(delta):
 		else:
 			velocity_component.add_velocity(get_gravity() * delta * gravity_mult_timer)
 		change_state(States.FALLING)
+
 		if coyote_time_timer == null:
 			coyote_time_timer = coyote_time
 
@@ -83,7 +84,7 @@ func _process(delta):
 
 	if state == States.JUMP_PREPARE:
 		jump_timer += 1
-		if jump_timer == 100:
+		if jump_timer == 50:
 			if not jump_strenght >= 1.5:
 				jump_strenght += jump_factor
 			else:
@@ -100,7 +101,7 @@ func _process(delta):
 
 	# handle left/right movement
 	var direction := Input.get_axis("left", "right")
-	if direction and state != States.JUMP_PREPARE:
+	if direction:
 		velocity_component.set_velocity_x(direction * stats.current_speed)
 		change_state(States.WALKING)
 			

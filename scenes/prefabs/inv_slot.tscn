@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://vqs5hny4v0m"]
+
+[ext_resource type="Script" uid="uid://dqoac1kr3pd0d" path="res://scripts/components/inv/inv_slot.gd" id="1_cchtj"]
+
+[node name="bg" type="TextureRect" unique_id=1317366277]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_cchtj")
+
+[node name="tooltip" type="TextureRect" parent="." unique_id=745129514]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="rarity" type="TextureRect" parent="." unique_id=40332247]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="item" type="TextureRect" parent="." unique_id=871202368]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="." unique_id=1126134699]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 51.0
+offset_bottom = 32.0
