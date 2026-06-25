@@ -497,7 +497,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_u8vuu"]
 radius = 16.0
-height = 66.0
+height = 62.0
 
 [sub_resource type="Resource" id="Resource_y4r1p"]
 script = ExtResource("5_ur7pv")
@@ -505,7 +505,7 @@ metadata/_custom_type_script = "uid://p264gu1epqq8"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_smehm"]
 radius = 20.0
-height = 72.0
+height = 64.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i4ail"]
 
@@ -523,7 +523,7 @@ region = Rect2(7, 60, 162, 27)
 script = ExtResource("1_3vyb7")
 stats = NodePath("Stats")
 velocity_component = NodePath("Velocity")
-jump_buffer = 100
+jump_buffer = 10
 coyote_time = 100
 gravity_mult = 0.1
 

@@ -5,13 +5,12 @@ extends CharacterBody2D
 @export var jump_buffer := 6
 @export var coyote_time := 5
 @export var gravity_mult := 0.5
-@export var jump_factor := 0.2
 
 @onready var right: ShapeCast2D = $right
 @onready var left: ShapeCast2D = $left
 @onready var anim_controller: AnimController = $AnimController
 
-enum States {IDLE, WALKING, SPRINTING, FALLING, JUMP_PREPARE}
+enum States {IDLE, WALKING, SPRINTING, FALLING}
 
 var jump_buffer_timer = null
 var coyote_time_timer = null
@@ -65,16 +64,22 @@ func _process(delta):
 		if coyote_time_timer == null:
 			coyote_time_timer = coyote_time
 
+			# Handle jump.
+		if Input.is_action_just_pressed("jump"):
+			jump_buffer_timer = jump_buffer
+			coyote_time_timer = null
+
 	else:
+		#handle jump
+		if Input.is_action_just_pressed("jump"):
+			jump(stats.jump_velo)
+			coyote_time_timer = 0
+
 		if jump_buffer_timer != null:
 			jump(stats.jump_velo)
 
 		jump_buffer_timer = null
 		coyote_time_timer = null
-
-		# start charging jump
-		if Input.is_action_just_pressed("jump"):
-			change_state(States.JUMP_PREPARE)
 
 	if state == States.FALLING:
 		grav_timer += 1
@@ -82,27 +87,21 @@ func _process(delta):
 			gravity_mult_timer += gravity_mult
 			grav_timer = 0
 
-	if state == States.JUMP_PREPARE:
-		jump_timer += 1
-		if jump_timer == 50:
-			if not jump_strenght >= 1.5:
-				jump_strenght += jump_factor
-			else:
-				jump_strenght = 1.5
-				jump_timer = 0
-
 	# wall jump
-	if right.is_colliding() and Input.is_action_just_pressed("jump"):
-		jump(stats.jump_velo / 2)
+	if right.is_colliding() and Input.is_action_just_pressed("jump") and not is_on_floor():
+		jump(stats.jump_velo)
+		velocity_component.set_velocity_x(stats.jump_velo)
 		
-	elif left.is_colliding() and Input.is_action_just_pressed("jump"):
-		jump(stats.jump_velo / 2)
+	elif left.is_colliding() and Input.is_action_just_pressed("jump") and not is_on_floor():
+		jump(stats.jump_velo)
+		velocity_component.set_velocity_x(-stats.jump_velo)
 
 
 	# handle left/right movement
 	var direction := Input.get_axis("left", "right")
 	if direction:
-		velocity_component.set_velocity_x(direction * stats.current_speed)
+		if not is_on_wall() and (not right.is_colliding() and not left.is_colliding()) and is_on_floor():
+			velocity_component.set_velocity_x(direction * stats.current_speed)
 		change_state(States.WALKING)
 			
 		# sets direction of sprite
@@ -111,31 +110,14 @@ func _process(delta):
 		else:
 			anim_controller.set_direction_for_all(Vector2(1, 1))
 
+
 	elif not direction:
 		if not is_on_floor():
 			velocity_component.reset_velocity_x(1)
-		else:
+		elif is_on_floor() and (not is_on_wall() and (not right.is_colliding() and not left.is_colliding())):
 			velocity_component.reset_velocity_x(stats.current_speed)
-			if state != States.JUMP_PREPARE:
-				change_state(States.IDLE)
+			change_state(States.IDLE)
 	move_and_slide()
-
-func _input(event: InputEvent) -> void:
-	# relase jump
-	if event.is_action_released("jump") and is_on_floor():
-		jump(stats.jump_velo * jump_strenght)
-		jump_strenght = 0.6
-		jump_timer = 0
-		change_state(States.FALLING)
-
-
-	# Handle jump.
-	if state != States.JUMP_PREPARE:
-		if event.is_action_pressed("jump") and coyote_time_timer != 0 and coyote_time_timer != null:
-			jump(stats.jump_velo)
-			coyote_time_timer = 0
-		if event.is_action_pressed("jump") and not is_on_floor():
-			jump_buffer_timer = jump_buffer
 
 func jump(value: float):
 	velocity_component.set_velocity_y(value)
