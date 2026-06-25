@@ -22,6 +22,14 @@
 [ext_resource type="Script" uid="uid://c8ikdt1ttmmku" path="res://scripts/components/effect_particles.gd" id="14_f1ej7"]
 [ext_resource type="PackedScene" uid="uid://bhrnihg27hnnh" path="res://scenes/prefabs/effect_particles_emitter_template.tscn" id="14_oprun"]
 [ext_resource type="Texture2D" uid="uid://cm3652wync2wm" path="res://assets/hud.png" id="22_a38lo"]
+[ext_resource type="Script" uid="uid://dod2dfpfyxx0t" path="res://scripts/components/inv/inv_node.gd" id="22_ke2ow"]
+[ext_resource type="Script" uid="uid://frarqffumwwk" path="res://scripts/ui_manager.gd" id="22_wnwbv"]
+[ext_resource type="Texture2D" uid="uid://c1owohp51ammu" path="res://assets/inv_boxes.png" id="23_4ni07"]
+[ext_resource type="Script" uid="uid://caoeks3dhwgnn" path="res://scripts/components/inv/inv_space.gd" id="24_ujl30"]
+[ext_resource type="PackedScene" uid="uid://vqs5hny4v0m" path="res://scenes/prefabs/inv_slot.tscn" id="25_ujl30"]
+[ext_resource type="Resource" uid="uid://dei66nr4srd5h" path="res://resources/items/bones.tres" id="26_wqfne"]
+[ext_resource type="Resource" uid="uid://cdb0ixf47td8q" path="res://resources/items/rotten_flesh.tres" id="28_gl8cc"]
+[ext_resource type="Resource" uid="uid://dkve0e1q2adr5" path="res://resources/items/health_potion.tres" id="29_487ah"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i4ail"]
 shader_parameter/color_count = 16
@@ -526,7 +534,7 @@ velocity_component = NodePath("Velocity")
 jump_buffer = 10
 coyote_time = 100
 gravity_mult = 0.1
-wall_jump_timer_val = 500
+wall_jump_timer_val = 800
 
 [node name="DirectionalLight2D2" type="PointLight2D" parent="." unique_id=1270015219]
 energy = 0.25
@@ -574,19 +582,20 @@ jump_velo = -300
 capacity = 100.0
 cooldown_factor = 1.0
 
-[node name="StatusEffects" type="Node" parent="." unique_id=1223287404 node_paths=PackedStringArray("health_component", "velocity", "container", "stats", "effect_particles")]
+[node name="StatusEffects" type="Node" parent="." unique_id=1223287404 node_paths=PackedStringArray("health_component", "velocity", "container", "stats", "effect_particles", "npr")]
 script = ExtResource("3_dqkch")
 health_component = NodePath("../Health")
 velocity = NodePath("../Velocity")
-container = NodePath("../Camera2D/CanvasLayer/MarginContainer/MarginContainer/statusEffects")
+container = NodePath("../Camera2D/CanvasLayer/hud/MarginContainer/statusEffects")
 stats = NodePath("../Stats")
 effect_particles = NodePath("../Hurtbox/effect_particles")
+npr = NodePath("../Camera2D/CanvasLayer/hud/MarginContainer/NinePatchRect")
 current_effects = SubResource("Resource_y4r1p")
 metadata/_custom_type_script = "uid://csn6pjafv0thn"
 
 [node name="Health" type="Node" parent="." unique_id=1552850037 node_paths=PackedStringArray("display", "stats")]
 script = ExtResource("4_tuyoq")
-display = NodePath("../Camera2D/CanvasLayer/MarginContainer/HBoxContainer/displays/healthDisplay")
+display = NodePath("../Camera2D/CanvasLayer/hud/HBoxContainer/displays/healthDisplay")
 stats = NodePath("../Stats")
 metadata/_custom_type_script = "uid://bmbowil6hgx7"
 
@@ -638,17 +647,10 @@ drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=1476454106]
+process_mode = 3
+script = ExtResource("22_wnwbv")
 
-[node name="ColorRect" type="ColorRect" parent="Camera2D/CanvasLayer" unique_id=294874708]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.58431375)
-
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer" unique_id=1987607365]
+[node name="hud" type="MarginContainer" parent="Camera2D/CanvasLayer" unique_id=1987607365]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -659,36 +661,208 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=16744683]
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/hud" unique_id=16744683]
 layout_mode = 2
 
-[node name="displays" type="VBoxContainer" parent="Camera2D/CanvasLayer/MarginContainer/HBoxContainer" unique_id=1024292707]
+[node name="displays" type="VBoxContainer" parent="Camera2D/CanvasLayer/hud/HBoxContainer" unique_id=1024292707]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="healthDisplay" type="TextureProgressBar" parent="Camera2D/CanvasLayer/MarginContainer/HBoxContainer/displays" unique_id=217657838]
+[node name="healthDisplay" type="TextureProgressBar" parent="Camera2D/CanvasLayer/hud/HBoxContainer/displays" unique_id=217657838]
 layout_mode = 2
 texture_under = SubResource("AtlasTexture_2w11d")
 texture_progress = SubResource("AtlasTexture_770dr")
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=206830397]
-layout_mode = 2
-theme_override_constants/margin_top = 20
-
-[node name="statusEffects" type="GridContainer" parent="Camera2D/CanvasLayer/MarginContainer/MarginContainer" unique_id=321117374]
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/hud" unique_id=206830397]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+theme_override_constants/margin_top = 20
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/hud/MarginContainer" unique_id=303987850]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+texture = ExtResource("23_4ni07")
+region_rect = Rect2(32, 0, 16, 16)
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="statusEffects" type="GridContainer" parent="Camera2D/CanvasLayer/hud/MarginContainer" unique_id=321117374]
+layout_mode = 2
 theme_override_constants/h_separation = 35
 theme_override_constants/v_separation = 35
 columns = 3
 
-[node name="inv" type="CenterContainer" parent="Camera2D/CanvasLayer/MarginContainer" unique_id=974260615]
+[node name="inv" type="MarginContainer" parent="Camera2D/CanvasLayer" unique_id=337206214 node_paths=PackedStringArray("inv")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+script = ExtResource("22_ke2ow")
+inv = {
+"main_inv": NodePath("CenterContainer/Control/ScrollContainer/GridContainer")
+}
+
+[node name="CenterContainer" type="CenterContainer" parent="Camera2D/CanvasLayer/inv" unique_id=783758559]
 layout_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/MarginContainer/inv" unique_id=129551801]
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer/inv/CenterContainer" unique_id=1658784392]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="Camera2D/CanvasLayer/MarginContainer/inv/ScrollContainer" unique_id=334786817]
+[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/inv/CenterContainer/Control" unique_id=829946825]
+layout_mode = 0
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="Camera2D/CanvasLayer/inv/CenterContainer/Control/ScrollContainer" unique_id=2088289640]
 layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 6
+script = ExtResource("24_ujl30")
+generate = true
+space_size = 32
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/inv/CenterContainer/Control" unique_id=905232280]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("23_4ni07")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="droped_items" type="Control" parent="Camera2D/CanvasLayer/inv" unique_id=1304480765]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/inv/droped_items" unique_id=485435918]
+layout_mode = 0
+offset_right = 1088.0
+offset_bottom = 584.0
+
+[node name="GridContainer" type="GridContainer" parent="Camera2D/CanvasLayer/inv/droped_items/ScrollContainer" unique_id=257449036]
+layout_mode = 2
+columns = 4
+script = ExtResource("24_ujl30")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/inv/droped_items" unique_id=294582017]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -10.0
+offset_right = 9.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("23_4ni07")
+region_rect = Rect2(32, 0, 16, 16)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="equipment" type="Control" parent="Camera2D/CanvasLayer/inv" unique_id=891540468]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/inv/equipment" unique_id=170358464]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -11.0
+offset_top = -10.0
+offset_right = 9.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("23_4ni07")
+region_rect = Rect2(64, 0, 16, 16)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="hotbar" type="Control" parent="Camera2D/CanvasLayer/inv" unique_id=1825310986]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/inv/hotbar" unique_id=179106682]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -24.0
+offset_right = 136.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("23_4ni07")
+region_rect = Rect2(32, 0, 16, 16)
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/inv/hotbar" unique_id=1539343620]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -20.0
+offset_right = 118.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 19
+alignment = 1
+
+[node name="inv_slot" parent="Camera2D/CanvasLayer/inv/hotbar/HBoxContainer" unique_id=1317366277 instance=ExtResource("25_ujl30")]
+layout_mode = 2
+item = ExtResource("26_wqfne")
+
+[node name="inv_slot2" parent="Camera2D/CanvasLayer/inv/hotbar/HBoxContainer" unique_id=1818231737 instance=ExtResource("25_ujl30")]
+layout_mode = 2
+item = ExtResource("26_wqfne")
+
+[node name="inv_slot3" parent="Camera2D/CanvasLayer/inv/hotbar/HBoxContainer" unique_id=2077944143 instance=ExtResource("25_ujl30")]
+layout_mode = 2
+
+[node name="inv_slot4" parent="Camera2D/CanvasLayer/inv/hotbar/HBoxContainer" unique_id=1623097604 instance=ExtResource("25_ujl30")]
+layout_mode = 2
+item = ExtResource("28_gl8cc")
+
+[node name="inv_slot5" parent="Camera2D/CanvasLayer/inv/hotbar/HBoxContainer" unique_id=255718256 instance=ExtResource("25_ujl30")]
+layout_mode = 2
+item = ExtResource("29_487ah")
+
+[node name="menu" type="Control" parent="Camera2D/CanvasLayer" unique_id=762965651]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

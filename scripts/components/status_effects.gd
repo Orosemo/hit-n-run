@@ -9,6 +9,7 @@ class_name StatusEffects
 @export var container: Container
 @export var stats: Stats
 @export var effect_particles: EffectParticles
+@export var npr : NinePatchRect
 
 @export_category("misc")
 @export var current_effects: CurrentEffects
@@ -154,6 +155,9 @@ func render_effects():
 			var new_effect_display = effect_display_scene.instantiate()
 			new_effect_display.effect = current_effects.current_status_effects[effect]
 			container.add_child(new_effect_display)
+		if not current_effects.current_status_effects.is_empty():
+			npr.size = container.get_combined_minimum_size() + Vector2(20, 20)
+
 
 func clear_container_children():
 	if container:
