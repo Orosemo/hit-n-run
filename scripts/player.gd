@@ -5,6 +5,7 @@ extends CharacterBody2D
 @export var jump_buffer := 6
 @export var coyote_time := 5
 @export var gravity_mult := 0.5
+@export var wall_jump_timer_val := 200
 
 @onready var right: ShapeCast2D = $right
 @onready var left: ShapeCast2D = $left
@@ -18,6 +19,7 @@ var gravity_mult_timer = 1
 var grav_timer = 0
 var jump_strenght := 0.6
 var jump_timer := 0
+var wall_jump_timer := 0.0
 
 var state := States.IDLE
 
@@ -54,6 +56,12 @@ func _process(delta):
 			else:
 				coyote_time_timer = 0
 
+		if wall_jump_timer > 0:
+			if wall_jump_timer - 1 >= 0:
+				wall_jump_timer -= 1
+			else:
+				wall_jump_timer = 0
+
 		# Add the gravity.
 		if is_on_wall():
 			velocity_component.add_velocity(get_gravity() * delta / 2)
@@ -88,19 +96,21 @@ func _process(delta):
 			grav_timer = 0
 
 	# wall jump
-	if right.is_colliding() and Input.is_action_just_pressed("jump") and not is_on_floor():
-		jump(stats.jump_velo)
-		velocity_component.set_velocity_x(stats.jump_velo)
-		
-	elif left.is_colliding() and Input.is_action_just_pressed("jump") and not is_on_floor():
-		jump(stats.jump_velo)
-		velocity_component.set_velocity_x(-stats.jump_velo)
-
+	if wall_jump_timer == 0:
+		if right.is_colliding() and Input.is_action_just_pressed("jump") and not is_on_floor():
+			jump(stats.jump_velo)
+			velocity_component.set_velocity_x(stats.jump_velo)
+			wall_jump_timer = wall_jump_timer_val
+			
+		elif left.is_colliding() and Input.is_action_just_pressed("jump") and not is_on_floor():
+			jump(stats.jump_velo)
+			velocity_component.set_velocity_x(-stats.jump_velo)
+			wall_jump_timer = wall_jump_timer_val
 
 	# handle left/right movement
 	var direction := Input.get_axis("left", "right")
 	if direction:
-		if not is_on_wall() and (not right.is_colliding() and not left.is_colliding()) and is_on_floor():
+		if not is_on_wall() and (not right.is_colliding() and not left.is_colliding()) or is_on_floor():
 			velocity_component.set_velocity_x(direction * stats.current_speed)
 		change_state(States.WALKING)
 			
@@ -114,7 +124,7 @@ func _process(delta):
 	elif not direction:
 		if not is_on_floor():
 			velocity_component.reset_velocity_x(1)
-		elif is_on_floor() and (not is_on_wall() and (not right.is_colliding() and not left.is_colliding())):
+		elif is_on_floor():
 			velocity_component.reset_velocity_x(stats.current_speed)
 			change_state(States.IDLE)
 	move_and_slide()

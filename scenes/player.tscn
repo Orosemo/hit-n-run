@@ -526,6 +526,7 @@ velocity_component = NodePath("Velocity")
 jump_buffer = 10
 coyote_time = 100
 gravity_mult = 0.1
+wall_jump_timer_val = 500
 
 [node name="DirectionalLight2D2" type="PointLight2D" parent="." unique_id=1270015219]
 energy = 0.25
