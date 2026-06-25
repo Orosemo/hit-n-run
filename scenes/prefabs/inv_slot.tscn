@@ -1,30 +1,33 @@
 [gd_scene format=3 uid="uid://vqs5hny4v0m"]
 
 [ext_resource type="Script" uid="uid://dqoac1kr3pd0d" path="res://scripts/components/inv/inv_slot.gd" id="1_cchtj"]
+[ext_resource type="Texture2D" uid="uid://eqy3di3522b" path="res://assets/atlas/items/uncommon.tres" id="2_pule4"]
+[ext_resource type="Texture2D" uid="uid://coik1bp3dcr2v" path="res://assets/atlas/items/bomb.tres" id="3_di2kr"]
+[ext_resource type="LabelSettings" uid="uid://bn0fq2rjj4vjs" path="res://UI/label/default.tres" id="4_yal0j"]
 
 [node name="bg" type="TextureRect" unique_id=1317366277]
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_cchtj")
 
-[node name="tooltip" type="TextureRect" parent="." unique_id=745129514]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
 [node name="rarity" type="TextureRect" parent="." unique_id=40332247]
+modulate = Color(1, 1, 1, 0.39215687)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("2_pule4")
 
 [node name="item" type="TextureRect" parent="." unique_id=871202368]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("3_di2kr")
 
 [node name="Label" type="Label" parent="." unique_id=1126134699]
 layout_mode = 0
-offset_left = 11.0
-offset_top = 9.0
-offset_right = 51.0
-offset_bottom = 32.0
+offset_left = 26.0
+offset_top = 22.0
+offset_right = 66.0
+offset_bottom = 45.0
+text = "20"
+label_settings = ExtResource("4_yal0j")

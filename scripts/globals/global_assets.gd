@@ -61,7 +61,6 @@ var status_effect_assets = [
 	"active_empty": "assets/atlas/effects/strenght_active_empty.tres",
 	"active_full": "assets/atlas/effects/strenght_active_full.tres"
 	},
-
 ]
 
 var status_effect_anims_assets = [
@@ -80,10 +79,19 @@ var status_effect_anims_assets = [
 ]
 
 var rarities = [
-	"assets/atlas/effect_particles/poison.tres",
-	"assets/atlas/effect_particles/shock.tres",
-	"assets/atlas/effect_particles/frost.tres",
-	"assets/atlas/effect_particles/death.tres",
-	"assets/atlas/effect_particles/fire.tres",
-	"assets/atlas/effect_particles/regeneration.tres",
+	"assets/atlas/items/rarities/common.tres",
+	"assets/atlas/items/rarities/uncommon.tres",
+	"assets/atlas/items/rarities/rare.tres",
+	"assets/atlas/items/rarities/ultra_rare.tres",
+	"assets/atlas/items/rarities/mythical.tres",
+	"assets/atlas/items/rarities/legendary.tres",
+]
+
+var rarities_lights = [
+	Color(117, 117, 117, 255),
+	Color(124, 179, 66, 255),
+	Color(0, 188, 212, 255),
+	Color(156, 39, 179, 255),
+	Color(229, 28, 35, 255),
+	Color(253, 216, 53, 255),
 ]

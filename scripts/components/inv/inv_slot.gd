@@ -15,7 +15,7 @@ func populate():
 		tooltip.visible = false
 	else:
 		tooltip.visible = true
-	item_texture.texture = load(item.icon)
+	item_texture.texture = item.icon
 	rarity.texture = load(GlobalAssets.rarities[item.rarity])
 	label.text = str(amount)
 

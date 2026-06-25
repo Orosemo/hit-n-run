@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Item" format=3 uid="uid://c2wmxu4tw8pya"]
+
+[ext_resource type="Script" uid="uid://cdyy13t8dg5ma" path="res://scripts/resources/item.gd" id="1_6wyv7"]
+[ext_resource type="Texture2D" uid="uid://buwikg6x7d0tv" path="res://assets/atlas/items/slime.tres" id="1_ohwgu"]
+
+[resource]
+script = ExtResource("1_6wyv7")
+name = "Slime"
+icon = ExtResource("1_ohwgu")
+rarity = 0
+type = 3
+metadata/_custom_type_script = "uid://cdyy13t8dg5ma"

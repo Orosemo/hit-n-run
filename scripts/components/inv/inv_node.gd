@@ -17,14 +17,7 @@ func save():
                 var item = slot.item
                 var item_data = {
                     "amount": slot.amount,
-                    "item": {
-                        "name": item.name,
-                        "icon": item.icon,
-                        "function": item.function,
-                        "rarity": item.rarity, 
-                        "type": item.type
-
-                    }
+                    "item": item.resource_path
                 }
                 inv_data[space_id]["Array"].insert(slot_id, item_data)
                 return inv_data
@@ -41,13 +34,9 @@ func load(inv_data: Dictionary):
                     slot_node.amount = slot_data.amount
 
                     # create new item
-                    var new_item = Item.new()
                     var item_data = slot_data["item"]
-                    new_item.name = item_data["name"]
-                    new_item.function = item_data["function"]
-                    new_item.rarity = item_data["rarity"]
-                    new_item.type = item_data["type"]
-                    slot_node.item = new_item
+                    slot_node.amount = item_data["amount"]
+                    slot_node.item = load(item_data["item"])
 
                     # add slot
                     space.add_child(slot_node)
@@ -57,13 +46,9 @@ func load(inv_data: Dictionary):
                     var slot = inv[space_id].inv_slots[slot_id]
                     
                     var slot_data = inv_data[space_id][slot_id]
-                    slot.amount = slot_data.amount 
+                    slot.amount = slot_data["amount"]
 
-                    var item_data = slot_data["item"]
-                    slot.item.name = item_data["name"]
-                    slot.item.function = item_data["function"]
-                    slot.item.rarity = item_data["rarity"]
-                    slot.item.type = item_data["type"]
+                    slot.item = load(slot_data["item"])
 
         else:
             push_error("space" + space_id + "not available")
