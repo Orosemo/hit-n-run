@@ -8,6 +8,8 @@
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_di2kr")
+expand_mode = 2
+stretch_mode = 1
 script = ExtResource("1_cchtj")
 
 [node name="rarity" type="TextureRect" parent="." unique_id=40332247]

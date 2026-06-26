@@ -10,6 +10,8 @@ extends CharacterBody2D
 @onready var right: ShapeCast2D = $right
 @onready var left: ShapeCast2D = $left
 @onready var anim_controller: AnimController = $AnimController
+@onready var saver: Saver = $Saver
+@onready var inv_blend: ColorRect = $Camera2D/CanvasLayer/inv_blend
 
 enum States {IDLE, WALKING, SPRINTING, FALLING}
 
@@ -132,3 +134,10 @@ func _process(delta):
 func jump(value: float):
 	velocity_component.set_velocity_y(value)
 	anim_controller.play_all("jump", true)
+
+func save():
+	print("save1")
+	return saver.save()
+	
+func load_data(data):
+	saver.load_data(data)

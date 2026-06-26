@@ -46,4 +46,4 @@ func load():
             get_node(node_data["parent"]).add_child(new_object)
             new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
             
-            new_object.load(node_data)
+            new_object.load_data(node_data)

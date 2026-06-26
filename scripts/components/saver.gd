@@ -5,10 +5,8 @@ class_name Saver
 @export var stats: Stats
 @export var inv: InvNode
 
-func _ready() -> void:
-    add_to_group("Persist")
-
 func save():
+    print('save')
     var save_data = {}
     if inv:
         save_data = {
@@ -51,7 +49,7 @@ func save():
         }
     return save_data
 
-func load(save_data):
+func load_data(save_data):
     if inv:
         inv.load(save_data["inv"])
     for key in save_data["stats"].keys():

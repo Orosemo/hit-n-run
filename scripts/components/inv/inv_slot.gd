@@ -1,7 +1,7 @@
 extends Control
 class_name InvSlot
 
-@export var slot: Slot
+@export var slot: Slot = Slot.new()
 @export var equipment: bool
 
 @onready var bg: InvSlot = $"."
@@ -13,9 +13,11 @@ class_name InvSlot
 signal item_changed
 
 func _get_drag_data(at_position: Vector2) -> Variant:
-	var item = slot.item
-	if !item or item == null:
+	if !slot or slot.item == null:
 		return
+
+	var item = slot.item
+	var amount = slot.amount
 	 
 	var preview = Control.new()
 	preview.add_child(rarity.duplicate())
@@ -31,31 +33,40 @@ func _can_drop_data(_at_position: Vector2, _data: Variant) -> bool:
 	return true
 
 func _drop_data(at_position: Vector2, data: Variant) -> void:
-	var item = slot.item
-	var amount = slot.amount
-	if !item or item == null:
-		amount = data["amount"]
-		item = data["item"]
-		data = null
+	if !slot or (slot.item == null and slot.amount == 0):
+		slot.amount = data.amount
+		slot.item = data.item
+		data.amount = 0
+		data.item = null
 	else:
-		var new_data = data
-		data = {"item": item, "amount": amount}
-		amount = new_data["amount"]
-		item = new_data["item"]
+		var new_amount = data.amount
+		var new_item = data.item
+		data.amount = slot.amount
+		data.item = slot.item
+		slot.amount = new_amount
+		slot.item = new_item
 	
 
 func populate():
-	var item = slot.item
-	var amount = slot.amount
-	if item != null:
+	if slot.item != null:
+		var item = slot.item
+		var amount = slot.amount
 		tooltip.visible = false
 		item_changed.emit(item, amount)
 		item_texture.texture = item.icon
 		rarity.texture = load(GlobalAssets.rarities[item.rarity])
+		item_texture.visible = true
+		label.visible = true
+		rarity.visible = true
 		if not equipment:
 			label.text = str(amount)
+		else:
+			label.visible = false
 	else:
 		tooltip.visible = true
+		item_texture.visible = false
+		label.visible = false
+		rarity.visible = false
 		item_changed.emit(false)
 
 func _ready() -> void:
