@@ -1,8 +1,7 @@
 extends Control
 class_name InvSlot
 
-@export var amount: int
-@export var item: Item
+@export var slot: Slot
 @export var equipment: bool
 
 @onready var bg: InvSlot = $"."
@@ -14,6 +13,7 @@ class_name InvSlot
 signal item_changed
 
 func _get_drag_data(at_position: Vector2) -> Variant:
+	var item = slot.item
 	if !item or item == null:
 		return
 	 
@@ -25,12 +25,14 @@ func _get_drag_data(at_position: Vector2) -> Variant:
 	preview.self_modulate = Color(preview.modulate, 0.5)
 
 	set_drag_preview(preview)
-	return {"item": item, "amount": amount}
+	return slot
 
 func _can_drop_data(_at_position: Vector2, _data: Variant) -> bool:
 	return true
 
 func _drop_data(at_position: Vector2, data: Variant) -> void:
+	var item = slot.item
+	var amount = slot.amount
 	if !item or item == null:
 		amount = data["amount"]
 		item = data["item"]
@@ -43,6 +45,8 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 	
 
 func populate():
+	var item = slot.item
+	var amount = slot.amount
 	if item != null:
 		tooltip.visible = false
 		item_changed.emit(item, amount)

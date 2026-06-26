@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GlobalVars="*uid://8owqvrkchebg"
 GlobalAssets="*uid://bdcw4r1fb15kn"
 TimeManager="*uid://frci0bbqf0cc"
+SaveManager="*uid://d1l81u8sondob"
 
 [display]
 

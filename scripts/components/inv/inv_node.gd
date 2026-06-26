@@ -14,9 +14,9 @@ func save():
 		for slot_id in space.inv_slots:
 			var slot = space.inv_slots[slot_id]
 			if slot.amount > 0:
-				var item = slot.item
+				var item = slot.slot.item
 				var item_data = {
-					"amount": slot.amount,
+					"amount": slot.slot.amount,
 					"item": item.resource_path
 				}
 				inv_data[space_id]["Array"].insert(slot_id, item_data)
@@ -35,8 +35,11 @@ func load(inv_data: Dictionary):
 
 					# create new item
 					var item_data = slot_data["item"]
-					slot_node.amount = item_data["amount"]
-					slot_node.item = load(item_data["item"])
+					var slot_res = Slot.new()
+					slot_res.amount = item_data["amount"]
+					slot_res.item = load(item_data["item"])
+					slot_node.slot = slot_res
+					
 
 					# add slot
 					space.add_child(slot_node)
