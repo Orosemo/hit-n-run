@@ -1337,3 +1337,4 @@ libraries/ = SubResource("AnimationLibrary_487ah")
 [connection signal="pressed" from="Camera2D/CanvasLayer/menu/VBoxContainer/settings" to="Camera2D/CanvasLayer" method="_on_settings_pressed"]
 [connection signal="pressed" from="Camera2D/CanvasLayer/menu/VBoxContainer/save" to="Camera2D/CanvasLayer" method="_on_save_pressed"]
 [connection signal="pressed" from="Camera2D/CanvasLayer/menu/VBoxContainer/exit" to="Camera2D/CanvasLayer" method="_on_exit_pressed"]
+[connection signal="animation_finished" from="Camera2D/CanvasLayer/ui_anim" to="Camera2D/CanvasLayer" method="_on_ui_anim_animation_finished"]

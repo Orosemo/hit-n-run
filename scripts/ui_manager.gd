@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var inv: InvNode = $inv
 @onready var menu: Control = $menu
 @onready var ui_anim: AnimationPlayer = $ui_anim
+@onready var continoue: Button = $menu/VBoxContainer/continoue
 
 func _ready() -> void:
 	inv.visible = false
@@ -32,7 +33,7 @@ func _process(delta: float) -> void:
 		else:
 			TimeManager.pause()
 			ui_anim.play("menu_entry")
-			$menu/VBoxContainer/continoue.grab_focus()
+			continoue.grab_focus()
 
 	if Input.is_action_just_pressed("back") and menu.visible:
 		TimeManager.play()
@@ -53,3 +54,9 @@ func _on_save_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	pass # Replace with function body.
+
+
+func _on_ui_anim_animation_finished(anim_name: StringName) -> void:
+	match anim_name:
+		"menu_entry":
+			continoue.grab_focus()
