@@ -3,6 +3,8 @@ class_name InvSlot
 
 @export var slot: Slot = Slot.new()
 @export var equipment: bool
+@export var generated_slot: bool
+@export_enum("consumable", "weapon", "usable", "misc") var type
 
 @onready var bg: InvSlot = $"."
 @onready var rarity: TextureRect = $rarity
@@ -29,8 +31,11 @@ func _get_drag_data(at_position: Vector2) -> Variant:
 	set_drag_preview(preview)
 	return slot
 
-func _can_drop_data(_at_position: Vector2, _data: Variant) -> bool:
-	return true
+func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+	if type:
+		return data.item.type == type
+	else:
+		return true
 
 func _drop_data(at_position: Vector2, data: Variant) -> void:
 	if !slot or (slot.item == null and slot.amount == 0):
@@ -71,6 +76,14 @@ func populate():
 
 func _ready() -> void:
 	populate()
+	if generated_slot:
+		add_to_group("persistent_slot")
+	else:
+		add_to_group("slot")
 	
 func _process(delta: float) -> void:
 	populate()
+
+func clear():
+	slot.amount = 0
+	slot.itme = null

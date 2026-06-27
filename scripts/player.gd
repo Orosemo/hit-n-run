@@ -10,8 +10,7 @@ extends CharacterBody2D
 @onready var right: ShapeCast2D = $right
 @onready var left: ShapeCast2D = $left
 @onready var anim_controller: AnimController = $AnimController
-@onready var saver: Saver = $Saver
-@onready var inv_blend: ColorRect = $Camera2D/CanvasLayer/inv_blend
+@onready var inv: InvNode = $Camera2D/CanvasLayer/inv
 
 enum States {IDLE, WALKING, SPRINTING, FALLING}
 
@@ -136,8 +135,29 @@ func jump(value: float):
 	anim_controller.play_all("jump", true)
 
 func save():
-	print("save1")
-	return saver.save()
+	var save_data = {
+		"filename" : get_scene_file_path(),
+		"parent" : get_parent().get_path(),
+		"pos_x" : position.x,
+		"pos_y" : position.y,
+		"stats": {
+			"health": stats.health,
+			"max_health": stats.max_health,
+			"current_speed": stats.current_speed,
+			"speed":stats.speed,
+			"damage_factor": stats.damage_factor,
+			"shield_factor": stats.shield_factor,
+			"jump_velo": stats.jump_velo,
+			"effect_factors": stats.effect_factors,
+			"capacity": stats.capacity,
+			"cooldown_factor": stats.cooldown_factor,            
+		},
+		"inv": inv.save(),
+	}
+
+	return save_data
 	
 func load_data(data):
-	saver.load_data(data)
+	inv.load(data["inv"])
+	for key in data["stats"].keys():
+		stats.set(key, data["stats"][key])

@@ -17,6 +17,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		if inv.visible:
 			TimeManager.play()
+			inv.save_state()
 			ui_anim.play("inv_exit")
 		else:
 			TimeManager.pause()
@@ -58,5 +59,9 @@ func _on_exit_pressed() -> void:
 
 func _on_ui_anim_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
+		
 		"menu_entry":
 			continoue.grab_focus()
+
+		"inv_entry":
+			inv.load_state()

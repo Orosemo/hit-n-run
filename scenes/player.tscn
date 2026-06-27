@@ -21,7 +21,6 @@
 [ext_resource type="Script" uid="uid://vrs1twpulcy0" path="res://addons/PaletteSwapShader/PaletteMaterial.gd" id="13_qfm1y"]
 [ext_resource type="Script" uid="uid://c8ikdt1ttmmku" path="res://scripts/components/effect_particles.gd" id="14_f1ej7"]
 [ext_resource type="PackedScene" uid="uid://bhrnihg27hnnh" path="res://scenes/prefabs/effect_particles_emitter_template.tscn" id="14_oprun"]
-[ext_resource type="Script" uid="uid://uv3uh7nitl5m" path="res://scripts/components/saver.gd" id="19_wnwbv"]
 [ext_resource type="Texture2D" uid="uid://cm3652wync2wm" path="res://assets/hud.png" id="22_a38lo"]
 [ext_resource type="Script" uid="uid://dod2dfpfyxx0t" path="res://scripts/components/inv/inv_node.gd" id="22_ke2ow"]
 [ext_resource type="Script" uid="uid://frarqffumwwk" path="res://scripts/ui_manager.gd" id="22_wnwbv"]
@@ -987,14 +986,6 @@ pallets = Dictionary[String, AtlasTexture]({
 })
 metadata/_custom_type_script = "uid://bwmhc0jhku3v4"
 
-[node name="Saver" type="Node" parent="." unique_id=1665626984 node_paths=PackedStringArray("root", "stats", "inv")]
-process_mode = 3
-script = ExtResource("19_wnwbv")
-root = NodePath("..")
-stats = NodePath("../Stats")
-inv = NodePath("../Camera2D/CanvasLayer/inv")
-metadata/_custom_type_script = "uid://uv3uh7nitl5m"
-
 [node name="Hurtbox" type="Area2D" parent="." unique_id=1611760110 node_paths=PackedStringArray("health_component", "shape", "effects")]
 script = ExtResource("5_fjrip")
 health_component = NodePath("../Health")
@@ -1259,6 +1250,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.78431374)
 
 [node name="menu" type="Control" parent="Camera2D/CanvasLayer" unique_id=762965651]

@@ -4,6 +4,11 @@ func save():
     if GlobalVars.save_slot:
         var save_file = FileAccess.open("user://savegame'%s'.save" % GlobalVars.save_slot, FileAccess.WRITE)
         var save_nodes = get_tree().get_nodes_in_group("Persist")
+
+        var current_node = get_tree().get_current_scene().get_path()
+        save_file.store_line(JSON.stringify({"scene": current_node}))
+
+
         for node in save_nodes:
             if node.scene_file_path.is_empty():
                 print("persistent node '%s' is not an instanced scene, skipped" % node.name)
@@ -31,19 +36,30 @@ func load():
         var save_file = FileAccess.open("user://savegame'%s'.save" % GlobalVars.save_slot, FileAccess.READ)
 
         while save_file.get_position() < save_file.get_length():
-            var json_string = save_file.get_line()
+            if not save_file.get_position() >= 1:
 
-            var json = JSON.new()
+                var json_string = save_file.get_line()
 
-            var parse_result = json.parse(json_string)
+                var json = JSON.new()
 
-            if not parse_result == OK:
-                continue
+                var parse_result = json.parse(json_string)
 
-            var node_data = json.data
+                if not parse_result == OK:
+                    continue
 
-            var new_object = load(node_data["filename"]).instantiate()
-            get_node(node_data["parent"]).add_child(new_object)
-            new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
+                var node_data = json.data
+
+                var new_object = load(node_data["filename"]).instantiate()
+                get_node(node_data["parent"]).add_child(new_object)
+                new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
+                
+                new_object.load_data(node_data)
             
-            new_object.load_data(node_data)
+            else:
+                var json_string = save_file.get_line()
+
+                var json = JSON.new()
+
+                var parse_result = json.parse(json_string)
+
+                get_tree().change_scene_to_file(parse_result["scene"])

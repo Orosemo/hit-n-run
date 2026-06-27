@@ -35,6 +35,8 @@ enabled=PackedStringArray("res://addons/PaletteSwapShader/plugin.cfg")
 [global_group]
 
 Persistant=""
+slot=""
+persistent_slot=""
 
 [input]
 
