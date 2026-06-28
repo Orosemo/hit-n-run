@@ -9,8 +9,8 @@ class_name InvSlot
 @onready var bg: InvSlot = $"."
 @onready var rarity: TextureRect = $rarity
 @onready var item_texture: TextureRect = $item
-@onready var tooltip: TextureRect = $tooltip
 @onready var label: Label = $Label
+@onready var tooltip: TextureRect = $tooltip
 
 signal item_changed
 
@@ -50,19 +50,20 @@ func _drop_data(at_position: Vector2, data: Variant) -> void:
 		data.item = slot.item
 		slot.amount = new_amount
 		slot.item = new_item
+	populate()
 	
 
 func populate():
 	if slot.item != null:
 		var item = slot.item
 		var amount = slot.amount
-		tooltip.visible = false
 		item_changed.emit(item, amount)
 		item_texture.texture = item.icon
 		rarity.texture = load(GlobalAssets.rarities[item.rarity])
 		item_texture.visible = true
 		label.visible = true
 		rarity.visible = true
+		tooltip.visible = false
 		if not equipment:
 			label.text = str(amount)
 		else:
@@ -80,10 +81,8 @@ func _ready() -> void:
 		add_to_group("persistent_slot")
 	else:
 		add_to_group("slot")
-	
-func _process(delta: float) -> void:
-	populate()
+
 
 func clear():
 	slot.amount = 0
-	slot.itme = null
+	slot.item = null

@@ -1,65 +1,148 @@
 extends Node
 
 func save():
-    if GlobalVars.save_slot:
-        var save_file = FileAccess.open("user://savegame'%s'.save" % GlobalVars.save_slot, FileAccess.WRITE)
-        var save_nodes = get_tree().get_nodes_in_group("Persist")
 
-        var current_node = get_tree().get_current_scene().get_path()
-        save_file.store_line(JSON.stringify({"scene": current_node}))
+	if not GlobalVars.save_slot:
+		return
+
+	var path = "user://savegame_%s.save" % GlobalVars.save_slot
+	var current_save_file = FileAccess.open(path, FileAccess.WRITE)
+	
+	current_save_file.store_string("")
+	current_save_file.close()
+
+	var save_file = FileAccess.open(path, FileAccess.WRITE)
+
+	var save_nodes = get_tree().get_nodes_in_group("Persist")
+
+	var header = {
+		"header": true,
+		"scene": get_tree().current_scene.scene_file_path,
+	}
+
+	save_file.store_line(JSON.stringify(header))
+
+	for node in save_nodes:
+
+		if node.scene_file_path.is_empty():
+			print("persistent node '%s' is not an instanced scene, skipped" % node.name)
+			continue
+
+		if not node.has_method("save"):
+			print("persistent node '%s' missing save()" % node.name)
+			continue
+
+		var node_data = node.save()
+
+		node_data["parent"] = get_tree().current_scene.get_path_to(node.get_parent())
+		node_data["name"] = get_tree().current_scene.get_path_to(node)
+
+		save_file.store_line(JSON.stringify(node_data))
+
+	print("save success")
 
 
-        for node in save_nodes:
-            if node.scene_file_path.is_empty():
-                print("persistent node '%s' is not an instanced scene, skipped" % node.name)
-                continue
 
-            if !node.has_method("save"):
-                print("persistent node '%s' is missing a save() function, skipped" % node.name)
-                continue
+func load_save():
 
-            var node_data = node.call("save")
+	if !GlobalVars.save_slot:
+		return
 
-            var json_string = JSON.stringify(node_data)
+	var path = "user://savegame_%s.save" % GlobalVars.save_slot
 
-            save_file.store_line(json_string)
+	if !FileAccess.file_exists(path):
+		print("No save found")
+		return
 
-func load():
-    if GlobalVars.save_slot:
-        if not FileAccess.file_exists("user://savegame.save"):
-            return
+	var save_file = FileAccess.open(path, FileAccess.READ)
 
-        var save_nodes = get_tree().get_nodes_in_group("Persist")
-        for node in save_nodes:
-            node.queue_free()
+	var header = JSON.parse_string(save_file.get_line())
 
-        var save_file = FileAccess.open("user://savegame'%s'.save" % GlobalVars.save_slot, FileAccess.READ)
+	if header == null or !header.has("header"):
+		print("Invalid save")
+		return
 
-        while save_file.get_position() < save_file.get_length():
-            if not save_file.get_position() >= 1:
+	var result = get_tree().change_scene_to_file(header["scene"])
 
-                var json_string = save_file.get_line()
+	if result != OK:
+		print("Could not load scene:", header["scene"])
+		return
 
-                var json = JSON.new()
+	await get_tree().process_frame
+	await get_tree().process_frame
 
-                var parse_result = json.parse(json_string)
+	var scene = get_tree().current_scene
 
-                if not parse_result == OK:
-                    continue
+	if scene == null:
+		print("Current scene is still null")
+		return
 
-                var node_data = json.data
+	while save_file.get_position() < save_file.get_length():
 
-                var new_object = load(node_data["filename"]).instantiate()
-                get_node(node_data["parent"]).add_child(new_object)
-                new_object.position = Vector2(node_data["pos_x"], node_data["pos_y"])
-                
-                new_object.load_data(node_data)
-            
-            else:
-                var json_string = save_file.get_line()
+		var line = save_file.get_line()
 
-                var json = JSON.new()
+		if line.is_empty():
+			continue
 
-                var parse_result = json.parse(json_string)
+		var node_data = JSON.parse_string(line)
 
-                get_tree().change_scene_to_file(parse_result["scene"])
+		if node_data == null:
+			continue
+
+		var parent = scene.get_node_or_null(node_data["parent"])
+
+		if parent == null:
+			print("Parent missing:", node_data["parent"])
+			continue
+
+		print(node_data)
+		var existing = parent.get_node_or_null(node_data["name"])
+
+		if existing:
+			if existing.has_method("load_data"):
+				existing.load_data(node_data)
+			continue
+
+		var packed_scene = load(node_data["filename"])
+
+		if packed_scene == null:
+			print("Missing scene:", node_data["filename"])
+			continue
+
+		var new_object = packed_scene.instantiate()
+		new_object.name = node_data["name"]
+
+		parent.add_child(new_object)
+
+		if new_object.has_method("load_data"):
+			new_object.load_data(node_data)
+
+	print("Load success")
+	TimeManager.play()
+	save_file.close()
+
+
+
+
+func save_config(value, name:String, section:String):
+
+	var config = ConfigFile.new()
+
+	config.set_value(section, name, value)
+
+	config.save("user://config.cfg")
+
+
+
+
+func load_config(name:String, section:String):
+
+	var config = ConfigFile.new()
+
+	var err = config.load("user://config.cfg")
+
+	if err != OK:
+		return null
+
+
+	return config.get_value(section, name)

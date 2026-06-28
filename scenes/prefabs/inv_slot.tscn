@@ -11,8 +11,6 @@ texture = ExtResource("1_di2kr")
 expand_mode = 2
 stretch_mode = 1
 script = ExtResource("1_cchtj")
-equipment = null
-generated_slot = null
 
 [node name="rarity" type="TextureRect" parent="." unique_id=40332247]
 modulate = Color(1, 1, 1, 0.39215687)

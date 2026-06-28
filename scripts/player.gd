@@ -135,9 +135,9 @@ func jump(value: float):
 	anim_controller.play_all("jump", true)
 
 func save():
+	print("player save")
 	var save_data = {
 		"filename" : get_scene_file_path(),
-		"parent" : get_parent().get_path(),
 		"pos_x" : position.x,
 		"pos_y" : position.y,
 		"stats": {
@@ -158,6 +158,9 @@ func save():
 	return save_data
 	
 func load_data(data):
-	inv.load(data["inv"])
+	print(data)
+	inv.load_inv(data["inv"])
+	position.x = data["pos_x"]
+	position.y = data["pos_y"]
 	for key in data["stats"].keys():
 		stats.set(key, data["stats"][key])

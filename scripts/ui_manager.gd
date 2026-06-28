@@ -6,10 +6,15 @@ extends CanvasLayer
 @onready var menu: Control = $menu
 @onready var ui_anim: AnimationPlayer = $ui_anim
 @onready var continoue: Button = $menu/VBoxContainer/continoue
+@onready var inv_blend: ColorRect = $inv_blend
+@onready var menu_blend: ColorRect = $menu_blend
+
 
 func _ready() -> void:
 	inv.visible = false
 	menu.visible = false
+	inv_blend.color = Color(0 ,0 ,0 ,0)
+	menu_blend.color = Color(0 ,0 ,0 ,0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -46,7 +51,7 @@ func _on_continoue_pressed() -> void:
 
 
 func _on_settings_pressed() -> void:
-	pass # Replace with function body.
+	SaveManager.load_save()
 
 
 func _on_save_pressed() -> void:

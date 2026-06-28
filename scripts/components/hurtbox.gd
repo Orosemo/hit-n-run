@@ -9,9 +9,11 @@ class_name Hurtbox
 var cooldown_timer : Timer
 
 func collision(collider):
-	health_component.damage(collider.damage)
-	if collider.effect:
-		effects.add_effect(collider.effect.duplicate())
+	if not collider.health_component:
+		if collider.damage:
+			health_component.damage(collider.damage)
+		if collider.effect:
+			effects.add_effect(collider.effect.duplicate())
 	
 	make_invincible()
 	cooldown_timer.start()
