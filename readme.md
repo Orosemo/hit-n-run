@@ -2,9 +2,12 @@
 
 Action platformer rougelike inspired by hollow knight
 
+Made by Joko26 (coding and design) and Hysedux (art + music/sfx and level + conceptual design)
+
 # Table of contens
 
 - [Controls](#controls)
+- [Roadmapp](#roadmap)
 - [Features](#features)
 	- [Status Effects](#status-effects-system)
 	- [Movement System](#movement-system)
@@ -18,6 +21,15 @@ a, d/left stick |	left, right
 space/x |	jump
 e/▲ | open inv (coming soon)
 escape/pause | pause
+
+## Roadmap
+
+- 0.1.0: Movement system + saving/loding
+- 0.2.0: Inventory + weapons/equipment
+- 0.3.0: enemys + dungeon manager
+- 0.5.0 music and sfx
+- 0.6.0: story
+- 1.0.0 Release
 
 ## Features
 
