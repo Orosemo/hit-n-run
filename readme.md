@@ -4,9 +4,20 @@ Action platformer rougelike inspired by hollow knight
 
 # Table of contens
 
+- [Controls](#controls)
 - [Features](#features)
 	- [Status Effects](#status-effects-system)
+	- [Movement System](#movement-system)
 
+
+## Controls
+
+Key/Controller | Function
+---|---
+a, d/left stick |	left, right
+space/x |	jump
+e/▲ | open inv (coming soon)
+escape/pause | pause
 
 ## Features
 
@@ -39,6 +50,15 @@ New status effects can be added by:
 3. adding an execution in `scripts/components/status_effects.gd`
 4. enjoy your new effect
 
+
+### Movement system
+
+#### current movement:
+
+- walking
+- jumping
+- walljumping
+- wallsliding
 
 ## Thanks
 - [pixelfranek](https://pixelfranek.itch.io/free-textures-of-light) for the light textures
