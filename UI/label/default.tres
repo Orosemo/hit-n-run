@@ -1,4 +1,7 @@
 [gd_resource type="LabelSettings" format=3 uid="uid://bn0fq2rjj4vjs"]
 
+[ext_resource type="FontFile" uid="uid://dfeuqwuwvbjkg" path="res://assets/fonts/ka1.ttf" id="1_modup"]
+
 [resource]
+font = ExtResource("1_modup")
 font_size = 11

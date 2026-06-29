@@ -1,28 +1,34 @@
 extends MarginContainer
 
-@onready var continue_button: Button = $CenterContainer/VBoxContainer/continue
+@onready var continue_button: Button = $CenterContainer/menu/continue
+@onready var version: Label = $version
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	continue_button.grab_focus()
+	version.text = ProjectSettings.get_setting("application/config/version")
 
-func populate_saves():
-	pass
+	var path = "user://savegame_%s.save" % GlobalVars.save_slot
+
+	continue_button.disabled = !FileAccess.file_exists(path)
+
+
 
 func _on_continue_pressed() -> void:
-	pass # Replace with function body.
+	SaveManager.load_save()
 
 
 func _on_new_game_pressed() -> void:
-	pass # Replace with function body.
+	DirAccess.remove_absolute("user://savegame_%s.save" % GlobalVars.save_slot)
+	TransitionManager.transition("res://scenes/test_env.tscn")
 
 
 func _on_load_pressed() -> void:
-	pass # Replace with function body.
+	pass
 
 
 func _on_settings_pressed() -> void:
-	pass # Replace with function body.
+	pass
 
 
 func _on_exit_pressed() -> void:

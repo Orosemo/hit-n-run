@@ -6,10 +6,16 @@
 [ext_resource type="Script" uid="uid://bbgtujuks36s1" path="res://scripts/resources/status_effect.gd" id="4_lfx8k"]
 [ext_resource type="PackedScene" uid="uid://bhrnihg27hnnh" path="res://scenes/prefabs/effect_particles_emitter_template.tscn" id="5_50qfi"]
 [ext_resource type="Texture2D" uid="uid://da2l62hm54yu7" path="res://assets/atlas/effect_particles/frost.tres" id="6_u72b4"]
+[ext_resource type="Texture2D" uid="uid://c57q7kxp5sdmx" path="res://assets/atlas/effects/frost_active_empty.tres" id="7_8ineh"]
 [ext_resource type="Texture2D" uid="uid://8bplvrhltopq" path="res://assets/atlas/effect_particles/shock.tres" id="7_douh2"]
 [ext_resource type="Texture2D" uid="uid://bnlisd2lonlkr" path="res://assets/atlas/effect_particles/confusion.tres" id="8_faimo"]
 [ext_resource type="PackedScene" uid="uid://dcyb7rjyndnxo" path="res://scenes/prefabs/item_node.tscn" id="9_u72b4"]
+[ext_resource type="Texture2D" uid="uid://bhuq2pqh1y6g6" path="res://assets/atlas/effects/shock_active_empty.tres" id="9_yf2fk"]
 [ext_resource type="Resource" uid="uid://cera02o4oon6y" path="res://resources/items/bomb.tres" id="10_douh2"]
+[ext_resource type="Texture2D" uid="uid://bxqouq4ubxyh0" path="res://assets/atlas/effect_particles/speed.tres" id="10_fgyt0"]
+[ext_resource type="Texture2D" uid="uid://btuijw74we8y4" path="res://assets/atlas/effects/speed_active_empty.tres" id="11_sx0ap"]
+[ext_resource type="Texture2D" uid="uid://cln1bkj84jdu6" path="res://assets/atlas/effects/confusion_active_empty.tres" id="13_mgaop"]
+[ext_resource type="LabelSettings" uid="uid://bn0fq2rjj4vjs" path="res://UI/label/default.tres" id="16_001sm"]
 
 [sub_resource type="Resource" id="Resource_wpndf"]
 script = ExtResource("4_lfx8k")
@@ -29,7 +35,7 @@ metadata/_custom_type_script = "uid://bbgtujuks36s1"
 
 [sub_resource type="Resource" id="Resource_lfx8k"]
 script = ExtResource("4_lfx8k")
-id = 3
+id = 9
 amount = 20.0
 strenght = 0.9
 metadata/_custom_type_script = "uid://bbgtujuks36s1"
@@ -55,7 +61,7 @@ tile_set = ExtResource("1_kyn1l")
 position = Vector2(16, -24)
 
 [node name="Collider" type="Area2D" parent="." unique_id=334824220 node_paths=PackedStringArray("shape")]
-position = Vector2(1016, -64)
+position = Vector2(1031, -48)
 script = ExtResource("3_wpndf")
 effect = SubResource("Resource_wpndf")
 shape = NodePath("CollisionShape2D")
@@ -71,8 +77,12 @@ emitting = true
 texture = ExtResource("6_u72b4")
 emission_sphere_radius = 52.19
 
+[node name="FrostActiveEmpty" type="Sprite2D" parent="Collider" unique_id=1708987732]
+position = Vector2(33, 1)
+texture = ExtResource("7_8ineh")
+
 [node name="Collider2" type="Area2D" parent="." unique_id=418824024 node_paths=PackedStringArray("shape")]
-position = Vector2(824, -64)
+position = Vector2(856, -15)
 script = ExtResource("3_wpndf")
 effect = SubResource("Resource_vswgr")
 shape = NodePath("CollisionShape2D")
@@ -88,6 +98,10 @@ emitting = true
 texture = ExtResource("7_douh2")
 emission_sphere_radius = 33.03
 
+[node name="ShockActiveEmpty" type="Sprite2D" parent="Collider2" unique_id=1918969282]
+position = Vector2(32, 0)
+texture = ExtResource("9_yf2fk")
+
 [node name="Collider3" type="Area2D" parent="." unique_id=1656986986 node_paths=PackedStringArray("shape")]
 position = Vector2(1184, -128)
 script = ExtResource("3_wpndf")
@@ -99,14 +113,18 @@ metadata/_custom_type_script = "uid://bnxyg44vj5awm"
 position = Vector2(32, 0)
 shape = SubResource("CircleShape2D_yltuv")
 
-[node name="effect_particles_emitter_template3" parent="Collider3" unique_id=2102079419 instance=ExtResource("5_50qfi")]
-position = Vector2(-480, 80)
+[node name="effect_particles_emitter_template4" parent="Collider3" unique_id=318094364 instance=ExtResource("5_50qfi")]
+position = Vector2(34, 49)
 emitting = true
-texture = ExtResource("8_faimo")
-emission_sphere_radius = 46.72
+texture = ExtResource("10_fgyt0")
+emission_sphere_radius = 45.35
+
+[node name="SpeedActiveEmpty" type="Sprite2D" parent="Collider3" unique_id=483366659]
+position = Vector2(32, -5)
+texture = ExtResource("11_sx0ap")
 
 [node name="Collider4" type="Area2D" parent="." unique_id=1362388615 node_paths=PackedStringArray("shape")]
-position = Vector2(672, -56)
+position = Vector2(674, -15)
 script = ExtResource("3_wpndf")
 effect = SubResource("Resource_yltuv")
 shape = NodePath("CollisionShape2D")
@@ -116,14 +134,35 @@ metadata/_custom_type_script = "uid://bnxyg44vj5awm"
 position = Vector2(40, -8)
 shape = SubResource("CircleShape2D_yltuv")
 
-[node name="effect_particles_emitter_template4" parent="Collider4" unique_id=318094364 instance=ExtResource("5_50qfi")]
-position = Vector2(544, -64)
+[node name="effect_particles_emitter_template3" parent="Collider4" unique_id=2102079419 instance=ExtResource("5_50qfi")]
+position = Vector2(30, -33)
 emitting = true
-emission_sphere_radius = 45.35
+texture = ExtResource("8_faimo")
+emission_sphere_radius = 46.72
+
+[node name="ConfusionActiveEmpty" type="Sprite2D" parent="Collider4" unique_id=33314920]
+position = Vector2(40, -8)
+texture = ExtResource("13_mgaop")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1118735195]
 color = Color(0.28852558, 0.47366595, 0.54164904, 1)
 
 [node name="item" parent="." unique_id=380949591 instance=ExtResource("9_u72b4")]
+visible = false
 position = Vector2(310, 15)
 item = ExtResource("10_douh2")
+
+[node name="Label" type="Label" parent="." unique_id=795209520]
+offset_left = -24.0
+offset_top = -102.0
+offset_right = 58.0
+offset_bottom = -79.0
+text = "Effects ▶"
+label_settings = ExtResource("16_001sm")
+
+[node name="Label2" type="Label" parent="." unique_id=1675968114]
+offset_left = -1203.0
+offset_top = -23.0
+offset_right = -1121.0
+text = "Drop ▼"
+label_settings = ExtResource("16_001sm")

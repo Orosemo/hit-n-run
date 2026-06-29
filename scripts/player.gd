@@ -41,6 +41,9 @@ func change_state(new_state: States):
 
 	state = new_state
 
+func _ready() -> void:
+	TimeManager.play()
+
 func _process(delta):
 	# midair funcs
 	if not is_on_floor():

@@ -30,6 +30,7 @@
 [ext_resource type="Resource" uid="uid://cera02o4oon6y" path="res://resources/items/bomb.tres" id="28_dt7fs"]
 [ext_resource type="Resource" uid="uid://c2wmxu4tw8pya" path="res://resources/items/slime.tres" id="28_wqfne"]
 [ext_resource type="Script" uid="uid://bv1ryhjb5fibb" path="res://scripts/resources/slot.gd" id="29_wqfne"]
+[ext_resource type="Theme" uid="uid://blfjvrqfqh4rr" path="res://UI/button/default.tres" id="31_wnwbv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_i4ail"]
 shader_parameter/color_count = 16
@@ -1058,6 +1059,7 @@ size_flags_vertical = 0
 theme_override_constants/margin_top = 20
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/hud/MarginContainer" unique_id=303987850]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("23_4ni07")
@@ -1146,6 +1148,7 @@ offset_bottom = 584.0
 layout_mode = 2
 columns = 4
 script = ExtResource("24_ujl30")
+space_size = 32
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/inv/droped_items" unique_id=294582017]
 layout_mode = 1
@@ -1273,10 +1276,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -71.0
-offset_top = -81.0
-offset_right = 65.0
-offset_bottom = 83.0
+offset_left = -72.0
+offset_top = -98.0
+offset_right = 72.0
+offset_bottom = 100.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("23_4ni07")
@@ -1285,6 +1288,8 @@ patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/CanvasLayer/menu" unique_id=500730869]
 layout_mode = 1
@@ -1305,24 +1310,36 @@ alignment = 1
 layout_mode = 2
 focus_neighbor_top = NodePath("../exit")
 focus_neighbor_bottom = NodePath("../settings")
+theme = ExtResource("31_wnwbv")
 text = "Continue"
 
 [node name="settings" type="Button" parent="Camera2D/CanvasLayer/menu/VBoxContainer" unique_id=1151531985]
 layout_mode = 2
 focus_neighbor_top = NodePath("../continoue")
 focus_neighbor_bottom = NodePath("../save")
+theme = ExtResource("31_wnwbv")
+disabled = true
 text = "Settings"
 
 [node name="save" type="Button" parent="Camera2D/CanvasLayer/menu/VBoxContainer" unique_id=944429238]
 layout_mode = 2
 focus_neighbor_top = NodePath("../settings")
 focus_neighbor_bottom = NodePath("../exit")
+theme = ExtResource("31_wnwbv")
 text = "Save"
+
+[node name="load" type="Button" parent="Camera2D/CanvasLayer/menu/VBoxContainer" unique_id=295223247]
+layout_mode = 2
+focus_neighbor_top = NodePath("../settings")
+focus_neighbor_bottom = NodePath("../exit")
+theme = ExtResource("31_wnwbv")
+text = "Load"
 
 [node name="exit" type="Button" parent="Camera2D/CanvasLayer/menu/VBoxContainer" unique_id=489777472]
 layout_mode = 2
 focus_neighbor_top = NodePath("../save")
 focus_neighbor_bottom = NodePath("../continoue")
+theme = ExtResource("31_wnwbv")
 text = "Exit
 "
 

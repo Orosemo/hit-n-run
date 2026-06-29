@@ -6,14 +6,6 @@ class_name InvNode
 var state: Dictionary
 
 
-func save_state():
-	state = save()
-
-
-func load_state():
-	load_inv(state)
-
-
 func save() -> Dictionary:
 	var inv_data := {}
 
@@ -88,12 +80,11 @@ func load_inv(inv_data: Dictionary):
 
 					slot_node.slot = slot_res
 
+				slot_node.add_to_group("slot")
 				space.add_child(slot_node)
 				space.inv_slots.append(slot_node)
 
 		else:
-
-			get_tree().call_group("slot", "clear")
 
 			var saved_array: Array = inv_data[space_id]
 
@@ -105,6 +96,9 @@ func load_inv(inv_data: Dictionary):
 				var slot_node: InvSlot = space.inv_slots[i]
 				var slot_data = saved_array[i]
 
-				slot_node.slot.amount = slot_data["amount"]
-				slot_node.slot.item = load(slot_data["item"])
+				var slot_res := Slot.new()
+				slot_res.amount = slot_data["amount"]
+				slot_res.item = load(slot_data["item"])
+
+				slot_node.slot = slot_res
 				slot_node.generated_slot = false

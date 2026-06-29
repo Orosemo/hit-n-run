@@ -42,7 +42,6 @@ func save():
 	print("save success")
 
 
-
 func load_save():
 
 	if !GlobalVars.save_slot:
@@ -62,6 +61,7 @@ func load_save():
 		print("Invalid save")
 		return
 
+	TimeManager.play()
 	var result = get_tree().change_scene_to_file(header["scene"])
 
 	if result != OK:
