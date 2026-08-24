@@ -1019,10 +1019,7 @@ target_position = Vector2(31, 17)
 process_mode = 3
 zoom = Vector2(2, 2)
 limit_smoothed = true
-position_smoothing_enabled = true
 position_smoothing_speed = 10.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=1476454106]
 process_mode = 3

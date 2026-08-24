@@ -11,6 +11,7 @@ extends CharacterBody2D
 @onready var left: ShapeCast2D = $left
 @onready var anim_controller: AnimController = $AnimController
 @onready var inv: InvNode = $Camera2D/CanvasLayer/inv
+@onready var camera: Camera2D = $Camera2D
 
 enum States {IDLE, WALKING, SPRINTING, FALLING}
 
@@ -161,7 +162,6 @@ func save():
 	return save_data
 	
 func load_data(data):
-	print(data)
 	inv.load_inv(data["inv"])
 	position.x = data["pos_x"]
 	position.y = data["pos_y"]

@@ -82,6 +82,8 @@ func _ready() -> void:
 	else:
 		add_to_group("slot")
 
+func _process(delta: float) -> void:
+	populate()
 
 func clear():
 	slot.amount = 0

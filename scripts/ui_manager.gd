@@ -44,6 +44,9 @@ func _process(delta: float) -> void:
 		TimeManager.play()
 		ui_anim.play("menu_exit")
 
+	if Input.is_action_just_pressed("fastquit"):
+		get_tree().quit()
+
 func _on_continoue_pressed() -> void:
 	TimeManager.play()
 	ui_anim.play("menu_exit")
