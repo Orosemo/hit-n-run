@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var anim_controller: AnimController = $AnimController
 @onready var inv: InvNode = $Camera2D/CanvasLayer/inv
 @onready var camera: Camera2D = $Camera2D
+@onready var status_effects: StatusEffects = $StatusEffects
 
 enum States {IDLE, WALKING, SPRINTING, FALLING}
 
@@ -141,28 +142,30 @@ func jump(value: float):
 func save():
 	print("player save")
 	var save_data = {
-		"filename" : get_scene_file_path(),
-		"pos_x" : position.x,
-		"pos_y" : position.y,
+		"filename": get_scene_file_path(),
+		"pos_x": position.x,
+		"pos_y": position.y,
 		"stats": {
 			"health": stats.health,
 			"max_health": stats.max_health,
 			"current_speed": stats.current_speed,
-			"speed":stats.speed,
+			"speed": stats.speed,
 			"damage_factor": stats.damage_factor,
 			"shield_factor": stats.shield_factor,
 			"jump_velo": stats.jump_velo,
 			"effect_factors": stats.effect_factors,
 			"capacity": stats.capacity,
-			"cooldown_factor": stats.cooldown_factor,            
+			"cooldown_factor": stats.cooldown_factor,
 		},
 		"inv": inv.save(),
+		"effects": status_effects.save()
 	}
 
 	return save_data
 	
 func load_data(data):
 	inv.load_inv(data["inv"])
+	status_effects.load(data["effects"])
 	position.x = data["pos_x"]
 	position.y = data["pos_y"]
 	for key in data["stats"].keys():

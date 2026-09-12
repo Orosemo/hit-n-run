@@ -9,7 +9,7 @@ class_name StatusEffects
 @export var container: Container
 @export var stats: Stats
 @export var effect_particles: EffectParticles
-@export var npr : NinePatchRect
+@export var npr: NinePatchRect
 
 @export_category("misc")
 @export var current_effects: CurrentEffects
@@ -51,7 +51,7 @@ func execute_effects():
 		if stats.effect_factors and stats.effect_factors.has(status_effect.id):
 			strenght *= stats.effect_factors[status_effect.id]
 
-		var delta_status_effect =  current_status_effects_delta[effect]
+		var delta_status_effect = current_status_effects_delta[effect]
 		# calculate delta strenght
 		var delta_strenght = status_effect.strenght
 		if stats.effect_factors and stats.effect_factors.has(delta_status_effect.id):
@@ -70,7 +70,7 @@ func execute_effects():
 							status_effect.executed = true
 					2: # frost
 						if not status_effect.executed:
-							stats.current_speed *= strenght 
+							stats.current_speed *= strenght
 							stats.shield_factor *= strenght
 							status_effect.executed = true
 					3: # decay
@@ -171,3 +171,41 @@ func _ready():
 	tick_timer.timeout.connect(update_effects)
 	add_child(tick_timer)
 	tick_timer.start()
+
+func save():
+	var saveable_effects: Dictionary
+	for effect in current_effects.current_status_effects:
+		var effect_data = current_effects.current_status_effects[effect]
+
+		# serialize effect to dict
+		saveable_effects[effect] = {
+			"id": effect_data.id,
+			"amount": effect_data.amount,
+			"strenght": effect_data.strenght,
+			"active": effect_data.active,
+			"sprite": effect_data.sprite,
+			"capacity": effect_data.capacity,
+			"executed": effect_data.executed,
+		}
+	return saveable_effects
+
+func load(effects_data_raw: Dictionary):
+	var effects_data: Dictionary
+	for raw_effect in effects_data_raw:
+		var raw_effect_data = effects_data_raw[raw_effect]
+
+		# create and fill new effect 
+		var new_effect = StatusEffect.new()
+		new_effect.id = raw_effect_data["id"]
+		new_effect.amount = raw_effect_data["amount"]
+		new_effect.strenght = raw_effect_data["strenght"]
+		new_effect.active = raw_effect_data["active"]
+		new_effect.sprite = raw_effect_data["sprite"]
+		new_effect.capacity = raw_effect_data["capacity"]
+		new_effect.executed = raw_effect_data["executed"]
+		
+		effects_data[raw_effect] = new_effect
+		
+	current_effects.current_status_effects.clear()
+	current_effects.current_status_effects = effects_data
+	update_effects()

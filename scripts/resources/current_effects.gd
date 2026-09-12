@@ -30,3 +30,6 @@ func remove_existing_effect(id: int):
 
 func check_if_status_effect(id: int):
 	return current_status_effects.has(id)
+
+func clear():
+	current_status_effects = {}
