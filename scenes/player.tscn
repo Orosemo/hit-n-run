@@ -1131,23 +1131,23 @@ patch_margin_top = 10
 patch_margin_right = 10
 patch_margin_bottom = 10
 
-[node name="droped_items" type="Control" parent="Camera2D/CanvasLayer/inv" unique_id=1304480765]
+[node name="dropped_items" type="Control" parent="Camera2D/CanvasLayer/inv" unique_id=1304480765]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/inv/droped_items" unique_id=485435918]
+[node name="ScrollContainer" type="ScrollContainer" parent="Camera2D/CanvasLayer/inv/dropped_items" unique_id=485435918]
 layout_mode = 0
 offset_right = 1088.0
 offset_bottom = 584.0
 
-[node name="GridContainer" type="GridContainer" parent="Camera2D/CanvasLayer/inv/droped_items/ScrollContainer" unique_id=257449036]
+[node name="GridContainer" type="GridContainer" parent="Camera2D/CanvasLayer/inv/dropped_items/ScrollContainer" unique_id=257449036]
 layout_mode = 2
 columns = 4
 script = ExtResource("24_ujl30")
 space_size = 32
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/inv/droped_items" unique_id=294582017]
+[node name="NinePatchRect" type="NinePatchRect" parent="Camera2D/CanvasLayer/inv/dropped_items" unique_id=294582017]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

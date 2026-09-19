@@ -5,7 +5,7 @@ func save():
 	if not GlobalVars.save_slot:
 		return
 
-	var path = "user://savegame_%s.save" % GlobalVars.save_slot
+	var path = "user://saves/savegame_%s.save" % GlobalVars.save_slot
 	var current_save_file = FileAccess.open(path, FileAccess.WRITE)
 	
 	current_save_file.store_string("")
@@ -47,7 +47,7 @@ func load_save():
 	if !GlobalVars.save_slot:
 		return
 
-	var path = "user://savegame_%s.save" % GlobalVars.save_slot
+	var path = "user://saves/savegame_%s.save" % GlobalVars.save_slot
 
 	if !FileAccess.file_exists(path):
 		print("No save found")
