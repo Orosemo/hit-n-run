@@ -190,7 +190,7 @@ func save():
 	return saveable_effects
 
 func load(effects_data_raw: Dictionary):
-	var effects_data: Dictionary
+	var effects_data: Dictionary[int, StatusEffect]
 	for raw_effect in effects_data_raw:
 		var raw_effect_data = effects_data_raw[raw_effect]
 
@@ -204,8 +204,8 @@ func load(effects_data_raw: Dictionary):
 		new_effect.capacity = raw_effect_data["capacity"]
 		new_effect.executed = raw_effect_data["executed"]
 		
-		effects_data[raw_effect] = new_effect
+		effects_data[int(raw_effect)] = new_effect
 		
-	current_effects.current_status_effects.clear()
+	current_effects.clear()
 	current_effects.current_status_effects = effects_data
 	update_effects()
