@@ -6,6 +6,12 @@ func save():
 		return
 
 	var path = "user://saves/savegame_%s.save" % GlobalVars.save_slot
+
+	var dir = DirAccess.open("user://")
+
+	if not dir.dir_exists("saves"):
+		dir.make_dir("saves")
+
 	var current_save_file = FileAccess.open(path, FileAccess.WRITE)
 	
 	current_save_file.store_string("")
@@ -21,6 +27,8 @@ func save():
 	}
 
 	save_file.store_line(JSON.stringify(header))
+
+	print(header)
 
 	for node in save_nodes:
 
@@ -39,7 +47,10 @@ func save():
 
 		save_file.store_line(JSON.stringify(node_data))
 
+		print(node_data)
+
 	print("save success")
+	
 
 
 func load_save():

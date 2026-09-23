@@ -7,7 +7,6 @@ var state: Dictionary
 
 
 func save() -> Dictionary:
-
 	var inv_data := {}
 
 	for space_id in inv:
@@ -65,24 +64,23 @@ func load_inv(inv_data: Dictionary):
 			var saved_array: Array = inv_data[space_id]["Array"]
 			var size: int = inv_data[space_id]["size"]
 
-			for i in range(size):
+			for item in saved_array:
 				var slot_node = preload("res://scenes/prefabs/inv_slot.tscn").instantiate()
 				slot_node.generated_slot = true
 
-				if i < saved_array.size():
-					if saved_array[i] != null:
-						var slot_data = saved_array[i]
+				if item != null:
+					var slot_data = item
 
-						var slot_res := Slot.new()
-						slot_res.amount = slot_data["amount"]
-						slot_res.item = load(slot_data["item"])
+					var slot_res := Slot.new()
+					slot_res.amount = slot_data["amount"]
+					slot_res.item = load(slot_data["item"])
 
-						slot_node.slot = slot_res
+					slot_node.slot = slot_res
 
-					# for empty slots
-					else:
-						var slot_res := Slot.new()
-						slot_node.slot = slot_res
+				# for empty slots
+				else:
+					var slot_res := Slot.new()
+					slot_node.slot = slot_res
 
 				slot_node.add_to_group("slot")
 				space.add_child(slot_node)
@@ -95,7 +93,7 @@ func load_inv(inv_data: Dictionary):
 				if saved_array[i] == null:
 					continue
 
-				var slot_node: InvSlot = space.inv_slots[i]
+				var slot_node: InvSlot = space.inv_slots[i-1]
 				var slot_data = saved_array[i]
 
 				var slot_res := Slot.new()
