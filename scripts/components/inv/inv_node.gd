@@ -89,12 +89,15 @@ func load_inv(inv_data: Dictionary):
 		else:
 			var saved_array: Array = inv_data[space_id]
 
-			for i in range(min(saved_array.size(), space.inv_slots.size())):
-				if saved_array[i] == null:
+			for slot in space.inv_slots:
+				if slot == null:
 					continue
 
-				var slot_node: InvSlot = space.inv_slots[i-1]
-				var slot_data = saved_array[i]
+				print("save data:")
+				print(saved_array)
+
+				var slot_node: InvSlot = slot
+				var slot_data = saved_array[]
 
 				var slot_res := Slot.new()
 				slot_res.amount = slot_data["amount"]
